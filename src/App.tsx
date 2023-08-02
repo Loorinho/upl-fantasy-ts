@@ -3,6 +3,7 @@ import "./App.css";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import Home from "./Home";
+import Players from "./components/players/Players";
 
 function App() {
   return (
@@ -11,8 +12,8 @@ function App() {
       <Route path="/" element={<Home />} />
 
       <Route path="/register" element={<Register />} />
+       <Route path="/players" element={<Players />} />
     </Routes>
   );
 }
-
 export default App;
