@@ -4,6 +4,7 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import Home from "./Home";
 import Players from "./components/players/Players";
+import Teams from "./components/teams/Teams";
 
 function App() {
   return (
