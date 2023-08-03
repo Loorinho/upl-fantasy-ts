@@ -7,7 +7,7 @@ const Players = () => {
   });
   return (
     <div>
-      <table className="table-auto w-90 ">
+      <table className="table-auto player_table border-collapse border border-slate-500 ">
         <thead>
           <tr className="px-2 py-2 bg-gray-400">
             <th>Name</th>
@@ -19,14 +19,14 @@ const Players = () => {
         </thead>
         <tbody>
           {players?.map((player: Player) => (
-            <tr key={player.id} className="text-center border-2 border-black">
+            <tr key={player.id} className="text-center">
               <td>
                 {player.first_name} {player.last_name}
               </td>
-              <td className="text-center">{player.shirt_number}</td>
-              <td className="text-center">{player.position}</td>
-              <td className="text-center">{player.foot}</td>
-              <td className="text-center">{player.age}</td>
+              <td className="">{player.shirt_number}</td>
+              <td className="">{player.position}</td>
+              <td className="">{player.foot}</td>
+              <td className="">{player.age}</td>
             </tr>
           ))}
         </tbody>
