@@ -10,6 +10,14 @@ export type Player = {
   age: number;
 };
 
+export type Team = {
+  id: number;
+  name: string;
+  city: string;
+  country: string;
+  players: Player[];
+};
+
 export const fetchPlayers = async () => {
   const url = "http://127.0.0.1:8000/api/players";
   const response = await axios.get(url);
@@ -26,4 +34,20 @@ export const fetchPlayers = async () => {
   });
 
   return players;
+};
+
+export const fetchTeams = async () => {
+  const url = "http://127.0.0.1:8000/api/teams";
+  const response = await axios.get(url);
+  const teams: Player[] = response.data.teams.map((team: Team) => {
+    return {
+      id: team.id,
+      name: team.name,
+      city: team.city,
+      country: team.country,
+      players: team.players,
+    };
+  });
+
+  return teams;
 };
