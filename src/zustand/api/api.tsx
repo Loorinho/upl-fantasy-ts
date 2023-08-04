@@ -23,9 +23,8 @@ export type Manager = {
   first_name: string;
   last_name: string;
   age: string;
-  team:string;
+  team: Team;
 };
-
 
 export const fetchPlayers = async () => {
   const url = "http://127.0.0.1:8000/api/players";
@@ -58,19 +57,23 @@ export const fetchTeams = async () => {
     };
   });
 
+  return teams;
+};
 
-  export const fetchManagers = async () => {
+export const fetchManagers = async () => {
   const url = "http://127.0.0.1:8000/api/managers";
   const response = await axios.get(url);
-  const managers: Manager[] = response.data.teams.map((manager: Manager) => {
-    return {
-      id: manager.id,
-      first_name: manager.first_name,
-      last_name: manager.last_name,
-      age: manager.country,
-      team: manager.team?.name,
-    };
-  });
+  const managers: Manager[] = response.data?.managers.map(
+    (manager: Manager) => {
+      return {
+        id: manager.id,
+        first_name: manager.first_name,
+        last_name: manager.last_name,
+        age: manager.age,
+        team: manager.team?.name,
+      };
+    }
+  );
 
   return managers;
 };

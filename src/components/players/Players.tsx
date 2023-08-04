@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Player, fetchPlayers } from "../../zustand/api/api";
 const Players = () => {
   const { data: players, isLoading } = useQuery({
-    queryKey: ["lecturers"],
+    queryKey: ["players"],
     queryFn: fetchPlayers,
   });
   return (
