@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Player } from "../../zustand/api/api";
 import useUplStore from "../../zustand/uplStore";
 const Players = () => {
@@ -5,6 +6,12 @@ const Players = () => {
   const players = useUplStore(state => state.players)
   return (
      <div style={{ width: '700px' }}>
+
+      <div className="m-4">
+        <Link to={"/players/create"}>
+        <button className="px-4 py-1.5 rounded bg-blue-600 text-white ">Create player</button>
+        </Link>
+      </div>
       <table className="w-full border-2 border-b-gray-400">
         <thead className="bg-gray-50 bottom-2 border-gray-200">
           <tr>
