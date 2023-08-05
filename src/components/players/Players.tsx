@@ -6,7 +6,7 @@ const Players = () => {
     queryFn: fetchPlayers,
   });
   return (
-     <div style={{ width: '500px' }}>
+     <div style={{ width: '700px' }}>
       <table className="w-full border-2 border-b-gray-400">
         <thead className="bg-gray-50 bottom-2 border-gray-200">
           <tr>
@@ -16,7 +16,7 @@ const Players = () => {
             <th className=" w-50 p-2 text-sm font-semibold tracking-wide text-left">
               Name
             </th>
-            <th className=" w-10 p-2 text-sm font-semibold tracking-wide text-left">
+            <th className=" w-15 p-2 text-sm font-semibold tracking-wide text-left">
               Shirt no.
             </th>
              <th className=" w-10 p-2 text-sm font-semibold tracking-wide text-left">
