@@ -1,30 +1,8 @@
-import { useQuery } from "@tanstack/react-query";
-import { Team, fetchTeams } from "../../zustand/api/api";
+import { Team } from "../../zustand/api/api";
 import useUplStore from "../../zustand/uplStore";
-import { useEffect } from "react";
 
 const Teams = () => {
-  const {
-    data: _teams,
-    isLoading,
-    isSuccess,
-  } = useQuery({
-    queryKey: ["teams"],
-    queryFn: fetchTeams,
-  });
-
-  let theTeams: Team[] = [];
-  if (isSuccess) {
-    theTeams = _teams;
-  }
-
   const teams = useUplStore((state) => state.teams);
-  const setTeams = useUplStore((state) => state.setTeams);
-
-  useEffect(() => {
-    setTeams(theTeams);
-  }, []);
-
   return (
     <div style={{ width: "500px" }}>
       <table className="w-full border-2 border-b-gray-400">
