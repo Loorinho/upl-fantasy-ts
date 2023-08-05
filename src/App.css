@@ -15,3 +15,7 @@
 .player_table{
     width: 800px;
 }
+
+.dialog::backdrop{
+    background-color: rgba(0, 0, 0, 0.6);
+}

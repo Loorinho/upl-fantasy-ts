@@ -4,7 +4,9 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const CreatePlayer = () => {
-    const navigate = useNavigate()
+  const mymodal = document.querySelector(".dialog") as HTMLDialogElement;
+
+  const navigate = useNavigate();
   const teams = useUplStore((state) => state.teams);
 
   const playerfoot = ["Left", "Right", "Both"];
@@ -64,8 +66,12 @@ const CreatePlayer = () => {
           },
         }
       );
-    
-      navigate("/players")
+
+      if (response.data) {
+        mymodal?.close();
+      }
+
+      navigate("/players");
     } catch (error) {
       console.error(error);
     }
@@ -75,12 +81,12 @@ const CreatePlayer = () => {
     <div>
       <form
         style={{ width: "500px" }}
-        className="bg-gray-100 rounded-md p-1"
+        className="rounded-md p-1"
         // onSubmit={(e: React.ChangeEvent<HTMLSelectElement>) => handleSubmit}
       >
         <p className="text-center py-4">Create a player</p>
 
-        <div className="grid grid-cols-8 gap-2">
+        <div className="grid grid-cols-8 gap-2 mb-2">
           <div className="col-span-4">
             <label className="text-gray-600 block text-sm">First name</label>
 
@@ -91,7 +97,7 @@ const CreatePlayer = () => {
               onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
                 setfirstName(e.target.value)
               }
-              className="px-3 py-1.5 w-full rounded-sm"
+              className="px-3 py-1.5 w-full rounded-md border border-blue-600 focus:ring-1 focus:ring-blue-600 outline-none"
             />
           </div>
           <div className="col-span-4">
@@ -104,18 +110,18 @@ const CreatePlayer = () => {
               onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
                 setLastName(e.target.value)
               }
-              className="px-3 py-1.5 w-full rounded-sm"
+              className="px-3 py-1.5 w-full rounded-sm border border-blue-600 focus:ring-1 focus:ring-blue-600 outline-none"
             />
           </div>
         </div>
-        <div className="grid grid-cols-8 gap-2">
+        <div className="grid grid-cols-8 gap-2 mb-3">
           <div className="col-span-3">
             <label className="text-gray-600 block text-sm">Shirt number</label>
             <input
               type="number"
               name="shirt_number"
               value={shirtNumber}
-              className="px-3 py-1.5 w-full rounded-sm"
+              className="px-3 py-1.5 w-full rounded-sm border border-blue-600 focus:ring-1 focus:ring-blue-600 outline-none"
               onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
                 setShirtNumber(e.target.value)
               }
@@ -127,7 +133,7 @@ const CreatePlayer = () => {
               type="number"
               name="age"
               value={age}
-              className="px-3 py-1.5 w-full rounded-sm"
+              className="px-3 py-1.5 w-full rounded-md border border-blue-600 focus:ring-1 focus:ring-blue-600 outline-none"
               onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
                 setAge(e.target.value)
               }
@@ -137,7 +143,7 @@ const CreatePlayer = () => {
             <label className="text-gray-600 block text-sm">Foot</label>
             <select
               name="foot"
-              className="px-3 py-1.5 w-full rounded-sm"
+              className="bg-white px-3 py-1.5 w-full rounded-md border border-blue-600 focus:ring-1 focus:ring-blue-600 outline-none"
               onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
                 setFoot(e.target.value)
               }
@@ -156,13 +162,17 @@ const CreatePlayer = () => {
             <label className="text-gray-600 block text-sm">Position</label>
             <select
               name="position"
-              className="px-3 py-1.5 w-full rounded-sm"
+              className="bg-white px-3 py-1.5 w-full rounded-md border border-blue-600 focus:ring-1 focus:ring-blue-600 outline-none"
               onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
                 setPosition(e.target.value)
               }
             >
               {playerposition?.map((position) => (
-                <option value={position} key={position}>
+                <option
+                  value={position}
+                  key={position}
+                  //   className=" bg-white px-3 py-1.5 w-full rounded-md border border-blue-600 focus:ring-1 focus:ring-blue-600 outline-none"
+                >
                   {position}
                 </option>
               ))}
@@ -172,13 +182,13 @@ const CreatePlayer = () => {
             <label className="text-gray-600 block text-sm">Team</label>
             <select
               name="team"
-              className="px-3 py-1.5 w-full rounded-sm"
+              className=" bg-white px-3 py-1.5 w-full rounded-md border border-blue-600 focus:ring-1 focus:ring-blue-600 outline-none"
               onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
                 setTeam(e.target.value)
               }
             >
               {teams?.map((team) => (
-                <option value={team.id} key={team.id}>
+                <option value={team.id} key={team.id} className="px-3 py-1.5 ">
                   {team.name}
                 </option>
               ))}
