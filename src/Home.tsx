@@ -1,27 +1,31 @@
 import { useQuery } from "@tanstack/react-query";
 import Register from "./components/Register";
-import { Player, fetchPlayers } from "./zustand/api/api";
+import { Player, fetchPlayers, fetchTeams } from "./zustand/api/api";
 import { useEffect, useMemo } from "react";
 import useUplStore from "./zustand/uplStore";
 
 const Home = () => {
   const setPlayers = useUplStore(state => state.setPlayers)
+  const setTeams = useUplStore(state => state.setTeams)
     const { data: players, isSuccess: loadedPlayers } = useQuery({
       queryKey: ["players"],
       queryFn: fetchPlayers,
     });
+    const { data: teams, isSuccess: loadedTeams } = useQuery({
+      queryKey: ["teams"],
+      queryFn: fetchTeams,
+  });
 
-    let realPlayers: Player[] = []
-    
-    if(loadedPlayers){
-      realPlayers = players
-    }
-    console.log("Players: ", realPlayers)
-
-    useMemo(()=>{
-      setPlayers(realPlayers)
-    }, [])
-
+  let realTeams: Team[] = [];
+  let realPlayers: Player[] = []
+  if(loadedPlayers && loadedTeams){
+    realPlayers = players
+    realTeams = teams
+  }
+  useMemo(()=>{
+    setPlayers(realPlayers)
+    setTeams(realTeams)
+  }, [])
 
   return (
     <div>
