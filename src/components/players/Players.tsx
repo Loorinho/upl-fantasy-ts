@@ -31,37 +31,16 @@ const Players = () => {
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-400">
-          {managers?.map((manager: any, index) => (
-            <tr key={manager.id}>
+           {players?.map((player: Player, index) => (
+            <tr key={player.id}>
               <td className="p-2 text-sm text-gray-700 ">{index + 1}</td>
-
               <td className="p-2 text-sm text-gray-700 ">
-                {manager.first_name} {manager.last_name}
+               {player.first_name} {player.last_name}
               </td>
-              <td className="p-2 text-sm text-gray-700 ">{manager.age}</td>
-              <td className="p-2 text-sm text-gray-700 ">{manager.team}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-
-
-
-    
-    <div>
-      <table className="table-auto player_table border-collapse border border-slate-500 ">
-
-        <tbody>
-          {players?.map((player: Player) => (
-            <tr key={player.id} className="text-center">
-              <td>
-                {player.first_name} {player.last_name}
-              </td>
-              <td className="">{player.shirt_number}</td>
-              <td className="">{player.position}</td>
-              <td className="">{player.foot}</td>
-              <td className="">{player.age}</td>
+              <td className="p-2 text-sm text-gray-700 ">{player.shirt_number}</td>
+              <td className="p-2 text-sm text-gray-700 ">{player.age}</td>
+              <td className="p-2 text-sm text-gray-700 ">{player.position}</td>           
+              <td className="p-2 text-sm text-gray-700 ">{player.foot}</td>
             </tr>
           ))}
         </tbody>
