@@ -47,7 +47,7 @@ export const fetchPlayers = async () => {
 export const fetchTeams = async () => {
   const url = "http://127.0.0.1:8000/api/teams";
   const response = await axios.get(url);
-  const teams: Player[] = response.data.teams.map((team: Team) => {
+  const teams: Team[] = response.data?.teams.map((team: Team) => {
     return {
       id: team.id,
       name: team.name,
