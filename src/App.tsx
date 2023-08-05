@@ -6,7 +6,6 @@ import Home from "./Home";
 import Players from "./components/players/Players";
 import CreatePlayer from "./components/players/CreatePlayer";
 import Teams from "./components/teams/Teams";
-import CreateTeam from "./components/teams/CreateTeam";
 import Managers from "./components/managers/Managers";
 
 function App() {
@@ -16,7 +15,6 @@ function App() {
       <Route path="/" element={<Home />} />
       <Route path="/register" element={<Register />} />
        <Route path="/players" element={<Players />} />
-       <Route path="/players/create" element={<CreatePlayer />} />
        <Route path="/teams" element={<Teams />} />
        <Route path="/teams/create" element={<CreateTeam />} />
       <Route path="/managers" element={<Managers />} />
