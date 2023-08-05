@@ -1,6 +1,28 @@
+import { useQuery } from "@tanstack/react-query";
 import Register from "./components/Register";
+import { Player, fetchPlayers } from "./zustand/api/api";
+import { useEffect, useMemo } from "react";
+import useUplStore from "./zustand/uplStore";
 
 const Home = () => {
+  const setPlayers = useUplStore(state => state.setPlayers)
+    const { data: players, isSuccess: loadedPlayers } = useQuery({
+      queryKey: ["players"],
+      queryFn: fetchPlayers,
+    });
+
+    let realPlayers: Player[] = []
+    
+    if(loadedPlayers){
+      realPlayers = players
+    }
+    console.log("Players: ", realPlayers)
+
+    useMemo(()=>{
+      setPlayers(realPlayers)
+    }, [])
+
+
   return (
     <div>
       <header className="bg-blue-500 py-3 px-3">

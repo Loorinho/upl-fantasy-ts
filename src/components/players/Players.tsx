@@ -1,10 +1,8 @@
-import { useQuery } from "@tanstack/react-query";
-import { Player, fetchPlayers } from "../../zustand/api/api";
+import { Player } from "../../zustand/api/api";
+import useUplStore from "../../zustand/uplStore";
 const Players = () => {
-  const { data: players, isLoading } = useQuery({
-    queryKey: ["players"],
-    queryFn: fetchPlayers,
-  });
+
+  const players = useUplStore(state => state.players)
   return (
      <div style={{ width: '700px' }}>
       <table className="w-full border-2 border-b-gray-400">
