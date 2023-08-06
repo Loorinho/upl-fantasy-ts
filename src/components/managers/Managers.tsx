@@ -3,12 +3,13 @@ import CreateManager from "./CreateManager";
 
 const Managers = () => {
   const managers = useUplStore((state) => state.managers);
-  const mymodal = document.querySelector(
-    ".manager-dialog"
+  const mymodal = document?.querySelector(
+    "#manager-dialog"
   ) as HTMLDialogElement;
+  console.log(mymodal)
 
   function showModal() {
-    console.log("manager dialog clicked");
+    // console.log("manager dialog clicked");
     mymodal?.showModal();
   }
 
@@ -55,7 +56,7 @@ const Managers = () => {
           </tbody>
         </table>
       </div>
-      <dialog className="manager-dialog rounded-lg p-4">
+      <dialog className="manager-dialog rounded-lg p-4" id="manager-dialog">
         <CreateManager />
       </dialog>
     </>

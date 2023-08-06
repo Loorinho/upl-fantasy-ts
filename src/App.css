@@ -16,14 +16,10 @@
     width: 800px;
 }
 
-.player-dialog::backdrop{
+.player-dialog::backdrop,.team-dialog::backdrop{
     background-color: rgba(0, 0, 0, 0.6);
 }
 
 .manager-dialog::backdrop{
-    background-color: rgba(0, 0, 0, 0.6);
-}
-
-.team-dialog::backdrop{
-    background-color: rgba(0, 0, 0, 0.6);
+     background-color: rgba(0, 0, 0, 0.6);
 }

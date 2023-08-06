@@ -1,13 +1,12 @@
-
 import { Player } from "../../zustand/api/api";
 import useUplStore from "../../zustand/uplStore";
 import CreatePlayer from "./CreatePlayer";
 const Players = () => {
   const players = useUplStore((state) => state.players);
-  const mymodal = document.querySelector(".dialog") as HTMLDialogElement;
+  const mymodal = document.querySelector("dialog") as HTMLDialogElement;
 
   function showModal() {
-    console.log("player dialog clicked")
+    console.log("player dialog clicked");
     mymodal?.showModal();
   }
 
@@ -68,7 +67,7 @@ const Players = () => {
         </table>
       </div>
 
-      <dialog className="player-dialog rounded-lg p-4">
+      <dialog className="player-dialog rounded-lg p-4" id="player-dialog">
         <CreatePlayer />
       </dialog>
     </>

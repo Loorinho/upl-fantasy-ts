@@ -77,3 +77,14 @@ export const fetchManagers = async () => {
 
   return managers;
 };
+
+export const createManager = async (data: any) => {
+  const url = "http://127.0.0.1:8000/api/managers";
+  const response = await axios.post(url, data, {
+    headers: {
+      "Content-Type": "application/json",
+    }
+  });
+
+  return response.data.message;
+};

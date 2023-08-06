@@ -4,7 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const CreatePlayer = () => {
-  const mymodal = document.querySelector(".player-dialog") as HTMLDialogElement;
+  const mymodal = document.querySelector("#player-dialog") as HTMLDialogElement;
 
   const navigate = useNavigate();
   const teams = useUplStore((state) => state.teams);
