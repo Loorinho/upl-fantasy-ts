@@ -1,27 +1,24 @@
+import {useRef} from "react"
 import { Player } from "../../zustand/api/api";
 import useUplStore from "../../zustand/uplStore";
 import CreatePlayer from "./CreatePlayer";
 const Players = () => {
   const players = useUplStore((state) => state.players);
-  const mymodal = document.querySelector("dialog") as HTMLDialogElement;
-
+  const playerRef = useRef<HTMLDialogElement>(null)
   function showModal() {
-    console.log("player dialog clicked");
-    mymodal?.showModal();
+    mymodal.current?.showModal();
   }
 
   return (
     <>
       <div style={{ width: "700px" }}>
         <div className="m-4">
-          {/* <Link to={"/players/create"}> */}
           <button
             className="px-4 py-1.5 rounded bg-blue-600 text-white outline-none"
             onClick={() => showModal()}
           >
             Create player
           </button>
-          {/* </Link> */}
         </div>
         <table className="w-full border-2 border-b-gray-400">
           <thead className="bg-gray-50 bottom-2 border-gray-200">
@@ -67,7 +64,7 @@ const Players = () => {
         </table>
       </div>
 
-      <dialog className="player-dialog rounded-lg p-4" id="player-dialog">
+      <dialog className="player-dialog rounded-lg p-4" id="player-dialog" ref={playerRef}>
         <CreatePlayer />
       </dialog>
     </>
