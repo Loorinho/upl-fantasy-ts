@@ -3,10 +3,12 @@ import { persist } from "zustand/middleware";
 import { Player, Team } from "./api/api";
 
 type UplStore = {
-  teams: Team[];
-  setTeams: (team: Team[]) => void;
-  players: Player[];
-  setPlayers: (team: Player[]) => void;
+  teams: Team[],
+  setTeams: (team: Team[]) => void,
+  players: Player[],
+  setPlayers: (team: Player[]) => void,
+  managers: Manager[],
+  setManagers: (managers: Manager[]) => void,
 };
 
 const useUplStore = create<UplStore>()(
@@ -14,6 +16,7 @@ const useUplStore = create<UplStore>()(
     (set) => ({
       teams: [],
       players: [],
+      managers: [],
       setTeams: (_teams: Team[]) => {
         const allteams = _teams?.map((team) => {
           return {
@@ -39,6 +42,18 @@ const useUplStore = create<UplStore>()(
           };
         });
         set({ players: allPlayers });
+      },
+      setManagers: (_managers: Manager[]) => {
+        const allManagers = _managers?.map((manager) => {
+          return {
+            id: manager.id,
+            first_name: manager.first_name,
+            last_name: manager.last_name,
+            team: manager?.team,
+            age: manager.age,
+          };
+        });
+        set({ managers: allManagers });
       },
     }),
     {
