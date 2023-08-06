@@ -11,8 +11,26 @@ const Managers = () => {
     return <p>Loading...</p>
   }
 
+  const managers = useUplStore((state) => state.managers);
+  const mymodal = document.querySelector(".dialog") as HTMLDialogElement;
+
+  function showModal() {
+    // console.log("cliecked")
+    mymodal?.showModal();
+  }
+
+
   return (
+    <>
     <div style={{ width: '500px' }}>
+      <div className="m-4">
+          <button
+            className="px-4 py-1.5 rounded bg-blue-600 text-white outline-none"
+            onClick={() => showModal()}
+          >
+            Create Manager
+          </button>
+        </div>
       <table className="w-full border-2 border-b-gray-400">
         <thead className="bg-gray-50 bottom-2 border-gray-200">
           <tr>
@@ -45,6 +63,10 @@ const Managers = () => {
         </tbody>
       </table>
     </div>
+       <dialog className="dialog rounded-lg p-4">
+        <CreateManager />
+      </dialog>
+    </>
   );
 };
 
