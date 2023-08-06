@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+
 import { Player } from "../../zustand/api/api";
 import useUplStore from "../../zustand/uplStore";
 import CreatePlayer from "./CreatePlayer";
@@ -7,7 +7,7 @@ const Players = () => {
   const mymodal = document.querySelector(".dialog") as HTMLDialogElement;
 
   function showModal() {
-    // console.log("cliecked")
+    console.log("player dialog clicked")
     mymodal?.showModal();
   }
 
@@ -68,7 +68,7 @@ const Players = () => {
         </table>
       </div>
 
-      <dialog className="dialog rounded-lg p-4">
+      <dialog className="player-dialog rounded-lg p-4">
         <CreatePlayer />
       </dialog>
     </>

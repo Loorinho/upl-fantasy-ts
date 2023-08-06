@@ -1,4 +1,3 @@
-import { Team } from "../../zustand/api/api";
 import useUplStore from "../../zustand/uplStore";
 
 const Teams = () => {
