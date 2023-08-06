@@ -4,23 +4,12 @@ import useUplStore from "../../zustand/uplStore";
 import CreateManager from "./CreateManager";
 
 const Managers = () => {
-  const { data: managers, isLoading } = useQuery({
-    queryKey: ["managers"],
-    queryFn: fetchManagers,
-  });
-
-  if(isLoading){
-    return <p>Loading...</p>
-  }
-
   const managers = useUplStore((state) => state.managers);
   const mymodal = document.querySelector(".dialog") as HTMLDialogElement;
 
   function showModal() {
-    // console.log("cliecked")
     mymodal?.showModal();
   }
-
 
   return (
     <>
