@@ -1,5 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchManagers } from "../../zustand/api/api";
+import useUplStore from "../../zustand/uplStore";
+import CreateManager from "./CreateManager";
 
 const Managers = () => {
   const { data: managers, isLoading } = useQuery({

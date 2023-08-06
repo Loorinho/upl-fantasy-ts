@@ -18,7 +18,7 @@ const Home = () => {
       queryFn: fetchTeams,
     });
 
-  const { data: managers, isSUccess: loadedManagers } = useQuery({
+  const { data: managers, isSuccess: loadedManagers } = useQuery({
     queryKey: ["managers"],
     queryFn: fetchManagers,
   });

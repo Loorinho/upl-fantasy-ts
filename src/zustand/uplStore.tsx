@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { Player, Team } from "./api/api";
+import { Manager, Player, Team } from "./api/api";
 
 type UplStore = {
   teams: Team[],
