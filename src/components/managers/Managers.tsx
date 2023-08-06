@@ -1,16 +1,13 @@
+import { useRef } from "react";
 import useUplStore from "../../zustand/uplStore";
 import CreateManager from "./CreateManager";
 
 const Managers = () => {
   const managers = useUplStore((state) => state.managers);
-  const mymodal = document?.querySelector(
-    "#manager-dialog"
-  ) as HTMLDialogElement;
-  console.log(mymodal)
+  const managerRef = useRef<HTMLDialogElement>(null)
 
   function showModal() {
-    // console.log("manager dialog clicked");
-    mymodal?.showModal();
+    managerRef.current?.showModal();
   }
 
   return (
@@ -56,7 +53,7 @@ const Managers = () => {
           </tbody>
         </table>
       </div>
-      <dialog className="manager-dialog rounded-lg p-4" id="manager-dialog">
+      <dialog className="manager-dialog rounded-lg p-4" id="manager-dialog" ref={managerRef}>
         <CreateManager />
       </dialog>
     </>

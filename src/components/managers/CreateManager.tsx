@@ -1,11 +1,14 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import useUplStore from "../../zustand/uplStore";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createManager } from "../../zustand/api/api";
 import { toast } from "react-toastify";
 
 const CreateManager = () => {
-    const modal = document.querySelector("#manager-dialog") as HTMLDialogElement;
+  const modal = document.querySelector("#manager-dialog") as HTMLDialogElement;
+//   const managerRef = useRef<HTMLDialogElement>(null);
+
+//   console.log(managerRef.current);
   const notify = async (message: string) => {
     await toast.success(message, {
       position: "top-center",
