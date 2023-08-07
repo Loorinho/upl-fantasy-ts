@@ -7,6 +7,7 @@ import Home from "./Home";
 import Players from "./components/players/Players";
 import Teams from "./components/teams/Teams";
 import Managers from "./components/managers/Managers";
+import Layout from "./components/layout/Layout";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       <Route path="/players" element={<Players />} />
       <Route path="/teams" element={<Teams />} />
       <Route path="/managers" element={<Managers />} />
+      <Route path="/home" element={<Layout />} />
     </Routes>
   );
 }
