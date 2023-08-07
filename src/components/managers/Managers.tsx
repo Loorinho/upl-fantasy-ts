@@ -4,7 +4,7 @@ import CreateManager from "./CreateManager";
 
 const Managers = () => {
   const managers = useUplStore((state) => state.managers);
-  const managerRef = useRef<HTMLDialogElement>(null)
+  const managerRef = useRef<HTMLDialogElement>(null)!
 
   function showModal() {
     managerRef.current?.showModal();
@@ -16,7 +16,7 @@ const Managers = () => {
         <div className="m-4">
           <button
             className="px-4 py-1.5 rounded bg-blue-600 text-white outline-none"
-            onClick={() => showModal()}
+            onClick={() => managerRef?.current?.showModal()}
           >
             Create Manager
           </button>
@@ -53,8 +53,12 @@ const Managers = () => {
           </tbody>
         </table>
       </div>
-      <dialog className="manager-dialog rounded-lg p-4" id="manager-dialog" ref={managerRef}>
-        <CreateManager />
+      <dialog
+        className="manager-dialog rounded-lg p-4"
+        id="manager-dialog"
+        ref={managerRef}
+      >
+        <CreateManager ref={managerRef} />
       </dialog>
     </>
   );

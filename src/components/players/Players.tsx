@@ -1,12 +1,12 @@
-import {useRef} from "react"
+import { useRef } from "react";
 import { Player } from "../../zustand/api/api";
 import useUplStore from "../../zustand/uplStore";
 import CreatePlayer from "./CreatePlayer";
 const Players = () => {
   const players = useUplStore((state) => state.players);
-  const playerRef = useRef<HTMLDialogElement>(null)
+  const playerRef = useRef<HTMLDialogElement>(null);
   function showModal() {
-    mymodal.current?.showModal();
+    playerRef.current?.showModal();
   }
 
   return (
@@ -64,8 +64,12 @@ const Players = () => {
         </table>
       </div>
 
-      <dialog className="player-dialog rounded-lg p-4" id="player-dialog" ref={playerRef}>
-        <CreatePlayer />
+      <dialog
+        className="player-dialog rounded-lg p-4"
+        id="player-dialog"
+        ref={playerRef}
+      >
+        <CreatePlayer ref={playerRef} />
       </dialog>
     </>
   );

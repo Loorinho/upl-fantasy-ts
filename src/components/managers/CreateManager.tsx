@@ -1,14 +1,12 @@
-import { useRef, useState } from "react";
+import { forwardRef, useRef, useState } from "react";
 import useUplStore from "../../zustand/uplStore";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createManager } from "../../zustand/api/api";
 import { toast } from "react-toastify";
+type CreateManagerProps = {};
 
-const CreateManager = () => {
-  const modal = document.querySelector("#manager-dialog") as HTMLDialogElement;
-//   const managerRef = useRef<HTMLDialogElement>(null);
+const CreateManager = forwardRef<HTMLDialogElement, CreateManagerProps>(({},ref) => {
 
-//   console.log(managerRef.current);
   const notify = async (message: string) => {
     await toast.success(message, {
       position: "top-center",
@@ -20,8 +18,11 @@ const CreateManager = () => {
       progress: undefined,
       theme: "light",
     });
-    console.log("Notification done")
-     modal?.close();
+    console.log("Notification done");
+    if(ref !== null){
+        ref?.current?.close();
+    }
+    // ref.current?.close();
   };
   // console.log(modal)
   const queryClient = useQueryClient();
@@ -30,18 +31,18 @@ const CreateManager = () => {
   const [firstName, setfirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [age, setAge] = useState(0);
-  const [team, setTeam] = useState(teams[0]);
+  const [team, setTeam] = useState(teams[0].id);
 
   const { mutate: addManager, data } = useMutation(createManager, {
     onSuccess: () => {
       notify(data);
-     
+
       queryClient.invalidateQueries(["managers"]);
     },
   });
 
-  async function handleSubmit(e: React.ChangeEvent<HTMLSelectElement>) {
-    e.preventDefault();
+  async function handleSubmit() {
+    // e.preventDefault();
     // console.log("submitted manager");
 
     const manager = {
@@ -63,9 +64,12 @@ const CreateManager = () => {
     <div>
       <form
         style={{ width: "500px" }}
-        className="rounded-md p-1"
+        className="rounded-md p-1 relative"
         // onSubmit={(e: React.ChangeEvent<HTMLSelectElement>) => handleSubmit}
       >
+        <p className="w-5 h-5 bg-red-600 text-white absolute right-1 cursor-pointer rounded-full text-center"
+        onClick={() => ref?.current?.close()}
+        >X</p>
         <p className="text-center py-4">Create a manager</p>
 
         <div className="grid grid-cols-8 gap-2 mb-2">
@@ -76,7 +80,7 @@ const CreateManager = () => {
               type="text"
               name="firstName"
               value={firstName}
-              onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setfirstName(e.target.value)
               }
               className="px-3 py-1.5 w-full rounded-md border border-blue-600 focus:ring-1 focus:ring-blue-600 outline-none"
@@ -89,7 +93,7 @@ const CreateManager = () => {
               type="text"
               name="lastName"
               value={lastName}
-              onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setLastName(e.target.value)
               }
               className="px-3 py-1.5 w-full rounded-sm border border-blue-600 focus:ring-1 focus:ring-blue-600 outline-none"
@@ -99,18 +103,18 @@ const CreateManager = () => {
         <div className="grid grid-cols-8 gap-2 mb-3">
           <div className="col-span-3">
             <label className="text-gray-600 block text-sm">Team</label>
-            {/* <select name="" id="">
-
-            </select> */}
-            <input
-              type="text"
-              name="team"
-              value={team.id}
+            <select
               className="px-3 py-1.5 w-full rounded-sm border border-blue-600 focus:ring-1 focus:ring-blue-600 outline-none"
               onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
-                setTeam(e.target.value)
+                setTeam(+e.target.value)
               }
-            />
+            >
+              {teams.map((team: any) => (
+                <option key={team.id} value={team.id}>
+                  {team.name}
+                </option>
+              ))}
+            </select>
           </div>
           <div className="col-span-2">
             <label className="text-gray-600 block text-sm">Age</label>
@@ -119,8 +123,8 @@ const CreateManager = () => {
               name="age"
               value={age}
               className="px-3 py-1.5 w-full rounded-md border border-blue-600 focus:ring-1 focus:ring-blue-600 outline-none"
-              onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
-                setAge(e.target.value)
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setAge(+e.target.value)
               }
             />
           </div>
@@ -130,9 +134,7 @@ const CreateManager = () => {
           <button
             // type="submit"
             className="bg-blue-600 rounded text-white px-3 py-2 w-full"
-            onClick={(e: React.ChangeEvent<HTMLSelectElement>) =>
-              handleSubmit(e)
-            }
+            onClick={() => handleSubmit()}
           >
             Create manager
           </button>
@@ -140,6 +142,6 @@ const CreateManager = () => {
       </form>
     </div>
   );
-};
+});
 
 export default CreateManager;
