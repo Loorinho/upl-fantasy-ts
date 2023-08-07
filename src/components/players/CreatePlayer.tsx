@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useState, forwardRef } from "react";
 import useUplStore from "../../zustand/uplStore";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const CreatePlayer = () => {
+type CreatePlayerProps = {}
+const CreatePlayer = forwardRef((CreatePlayerProps, ref) => {
   const mymodal = document.querySelector("#player-dialog") as HTMLDialogElement;
 
   const navigate = useNavigate();
@@ -44,8 +45,7 @@ const CreatePlayer = () => {
       position,
       foot,
       team,
-    };
-    // console.log("Player: ", player);
+    }
 
     try {
       const url = "http://127.0.0.1:8000/api/players";
@@ -84,6 +84,7 @@ const CreatePlayer = () => {
         className="rounded-md p-1"
         // onSubmit={(e: React.ChangeEvent<HTMLSelectElement>) => handleSubmit}
       >
+        <p className="absolute right-3 rounded bg-red-600 h-5 w-5 text-white">X</p>
         <p className="text-center py-4">Create a player</p>
 
         <div className="grid grid-cols-8 gap-2 mb-2">
@@ -94,7 +95,7 @@ const CreatePlayer = () => {
               type="text"
               name="firstName"
               value={firstName}
-              onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setfirstName(e.target.value)
               }
               className="px-3 py-1.5 w-full rounded-md border border-blue-600 focus:ring-1 focus:ring-blue-600 outline-none"
@@ -107,7 +108,7 @@ const CreatePlayer = () => {
               type="text"
               name="lastName"
               value={lastName}
-              onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setLastName(e.target.value)
               }
               className="px-3 py-1.5 w-full rounded-sm border border-blue-600 focus:ring-1 focus:ring-blue-600 outline-none"
@@ -134,7 +135,7 @@ const CreatePlayer = () => {
               name="age"
               value={age}
               className="px-3 py-1.5 w-full rounded-md border border-blue-600 focus:ring-1 focus:ring-blue-600 outline-none"
-              onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setAge(e.target.value)
               }
             />
@@ -193,11 +194,6 @@ const CreatePlayer = () => {
                 </option>
               ))}
             </select>
-            {/* <input
-              type="text"
-              name="player_name"
-              className="px-3 py-1.5 w-full rounded-sm"
-            /> */}
           </div>
         </div>
 
@@ -205,7 +201,7 @@ const CreatePlayer = () => {
           <button
             // type="submit"
             className="bg-blue-600 rounded text-white px-3 py-2 w-full"
-            onClick={(e: React.ChangeEvent<HTMLSelectElement>) =>
+            onClick={(e: React.ClickEvent<HTMLButtonElement>) =>
               handleSubmit(e)
             }
           >
@@ -215,6 +211,6 @@ const CreatePlayer = () => {
       </form>
     </div>
   );
-};
+});
 
 export default CreatePlayer;
