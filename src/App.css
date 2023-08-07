@@ -23,3 +23,17 @@
 .manager-dialog::backdrop{
      background-color: rgba(0, 0, 0, 0.6);
 }
+
+.header{
+    height: 5rem;
+    position: sticky;
+    top: 0;
+}
+
+.sidebar{
+   height: calc(100vh - 5rem);
+   /* position: fixed;
+   left: 0;
+   bottom: 0;
+   top:5rem */
+}
