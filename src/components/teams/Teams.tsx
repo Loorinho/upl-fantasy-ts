@@ -1,9 +1,13 @@
 import useUplStore from "../../zustand/uplStore";
+import CreateTeam from "./CreateTeam"
 
 const Teams = () => {
   const teams = useUplStore((state) => state.teams);
   return (
     <div style={{ width: "500px" }}>
+      <button className="bg-blue-700 text-white px-4 py-2 m-2">
+      Create Team
+      </button>
       <table className="w-full border-2 border-b-gray-400">
         <thead className="bg-gray-50 bottom-2 border-gray-200">
           <tr>
@@ -33,6 +37,10 @@ const Teams = () => {
           ))}
         </tbody>
       </table>
+
+      <dialog>
+        <CreateTeam />
+      </dialog>        
     </div>
   );
 };
