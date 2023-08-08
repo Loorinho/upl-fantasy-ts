@@ -32,8 +32,16 @@
 
 .sidebar{
    height: calc(100vh - 5rem);
-   /* position: fixed;
-   left: 0;
-   bottom: 0;
-   top:5rem */
+ 
+}
+
+
+.nav_items > a{
+    padding: 7px 20px
+}
+.nav_items a.active{
+    border-right: 5px solid rgb(60, 88, 250);
+    background-color: rgb(96, 165, 250);
+    color: white;
+    font-weight: 500;
 }
