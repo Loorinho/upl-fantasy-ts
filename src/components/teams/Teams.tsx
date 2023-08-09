@@ -1,11 +1,13 @@
+import { useRef } from 'react'
 import useUplStore from "../../zustand/uplStore";
 import CreateTeam from "./CreateTeam"
 
 const Teams = () => {
+  const teamRef = useRef<HTMLDialogElement>(null);
   const teams = useUplStore((state) => state.teams);
   return (
     <div style={{ width: "500px" }}>
-      <button className="bg-blue-700 text-white px-4 py-2 m-2">
+      <button className="bg-blue-700 text-white px-4 py-2 m-2" onClick={()=> teamRef.current?.showModal()}>
       Create Team
       </button>
       <table className="w-full border-2 border-b-gray-400">
@@ -38,8 +40,8 @@ const Teams = () => {
         </tbody>
       </table>
 
-      <dialog>
-        <CreateTeam />
+      <dialog className="team_dialog" ref={teamRef}>
+        <CreateTeam ref={teamRef} />
       </dialog>        
     </div>
   );
