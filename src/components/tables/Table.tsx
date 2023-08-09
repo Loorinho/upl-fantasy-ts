@@ -53,22 +53,20 @@ const Table = () => {
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-400">
-          {/*             {players?.map((player: Player, index) => (
+            {table?.map((team: any) => (
               <tr key={player.id}>
-                <td className="p-2 text-sm text-gray-700 ">{index + 1}</td>
-                <td className="p-2 text-sm text-gray-700 ">
-                  {player.first_name} {player.last_name}
-                </td>
-                <td className="p-2 text-sm text-gray-700 ">
-                  {player.shirt_number}
-                </td>
-                <td className="p-2 text-sm text-gray-700 ">{player.age}</td>
-                <td className="p-2 text-sm text-gray-700 ">
-                  {player.position}
-                </td>
-                <td className="p-2 text-sm text-gray-700 ">{player.foot}</td>
+                <td className="p-2 text-sm text-gray-700 ">{team.position}</td>
+                <td className="p-2 text-sm text-gray-700 ">{team.team}</td>
+                <td className="p-2 text-sm text-gray-700 ">{team.played}</td>
+                <td className="p-2 text-sm text-gray-700 ">{team.won}</td>
+                <td className="p-2 text-sm text-gray-700 ">{team.drawn}</td>
+                <td className="p-2 text-sm text-gray-700 ">{team.lost}</td>
+                <td className="p-2 text-sm text-gray-700 ">{team.goals_for}</td>
+                 <td className="p-2 text-sm text-gray-700 ">{team.goals_against}</td>
+                 <td className="p-2 text-sm text-gray-700 ">{team.goal_difference}</td>
+                <td className="p-2 text-sm text-gray-700 ">{team.points}</td>
               </tr>
-            ))} */}
+            ))}
         </tbody>
       </table>
     </div>
