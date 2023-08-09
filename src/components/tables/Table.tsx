@@ -1,4 +1,18 @@
+import { useEffect } from 'react'
+import axios from 'axios'
 const Table = () => {
+   const url = "http://127.0.0.1:8000/api/getTable";
+  const fetchTable = async () => {
+    try{
+      const response = await axios.get(url)
+      console.log(response.data.table)
+    }catch(error){
+      console.error(error)
+    }
+  }
+  useEffect(()=> {
+    fetchTable()
+  }, [])
   return (
     <div>
     <div>Page to display current league table</div>
