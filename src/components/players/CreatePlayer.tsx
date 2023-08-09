@@ -82,7 +82,7 @@ const CreatePlayer = forwardRef<HTMLDialogElement, CreatePlayerProps>(
     }
 
     return (
-      <div>
+      <div className="">
         <form
           style={{ width: "500px" }}
           className="rounded-md p-1"

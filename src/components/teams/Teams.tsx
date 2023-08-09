@@ -7,7 +7,7 @@ const Teams = () => {
   const teams = useUplStore((state) => state.teams);
   return (
     <div style={{ width: "500px" }}>
-      <button className="bg-blue-700 text-white px-4 py-2 m-2 outline-none" onClick={()=> teamRef.current?.showModal()}>
+      <button className="bg-blue-700 text-white px-4 py-2 m-2 outline-none rounded" onClick={()=> teamRef.current?.showModal()}>
       Create Team
       </button>
       <table className="w-full border-2 border-b-gray-400">
@@ -40,7 +40,7 @@ const Teams = () => {
         </tbody>
       </table>
 
-      <dialog className="team-dialog" ref={teamRef}>
+      <dialog className="team-dialog rounded-md" ref={teamRef}>
         <CreateTeam ref={teamRef} />
       </dialog>        
     </div>

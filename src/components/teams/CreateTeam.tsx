@@ -4,10 +4,10 @@ const CreateTeam = forwardRef<HTMLDialogElement, CreateTeamProps>(({}, ref) => {
 
   const [name, setName] = useState("")
   const [city, setCity] = useState("")
-  return <div className="px-4">
+  return <div className="px-4 py-2">
    <form
-        style={{ width: "500px" }}
-        className="rounded-md p-1 relative"
+        style={{ width: "450px" }}
+        className="p-1 relative"
         // onSubmit={(e: React.ChangeEvent<HTMLSelectElement>) => handleSubmit}
       >
         <p className="w-5 h-5 bg-red-600 text-white absolute right-1 cursor-pointer rounded-full text-center"

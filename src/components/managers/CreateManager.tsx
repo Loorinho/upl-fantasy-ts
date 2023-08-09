@@ -5,7 +5,7 @@ import { createManager } from "../../zustand/api/api";
 import { toast } from "react-toastify";
 type CreateManagerProps = {};
 
-const CreateManager = forwardRef<HTMLDialogElement, CreateManagerProps>(({},ref) => {
+const CreateManager = forwardRef<HTMLDialogElement | HTMLParagraphElement, CreateManagerProps>(({},ref) => {
 
   const notify = async (message: string) => {
     await toast.success(message, {
@@ -67,7 +67,7 @@ const CreateManager = forwardRef<HTMLDialogElement, CreateManagerProps>(({},ref)
         className="rounded-md p-1 relative"
         // onSubmit={(e: React.ChangeEvent<HTMLSelectElement>) => handleSubmit}
       >
-        <p className="w-5 h-5 bg-red-600 text-white absolute right-1 cursor-pointer rounded-full text-center"
+        <p ref={ref}className="w-5 h-5 bg-red-600 text-white absolute right-1 cursor-pointer rounded-full text-center"
         onClick={() => ref?.current?.close()}
         >X</p>
         <p className="text-center py-4">Create a manager</p>
