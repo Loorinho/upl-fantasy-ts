@@ -4,7 +4,7 @@ const CreateTeam = forwardRef<HTMLDialogElement, CreateTeamProps>(({}, ref) => {
 
   const [name, setName] = useState("")
   const [city, setCity] = useState("")
-  return <div>
+  return <div className="px-4">
    <form
         style={{ width: "500px" }}
         className="rounded-md p-1 relative"
