@@ -21,6 +21,7 @@ function App() {
         <Route path="/teams" element={<Teams />} />
         <Route path="/managers" element={<Managers />} />
         <Route path="/log" element={<Table />} />
+        <Route path="/fixtures" element={<FixturesList />} />
       </Route>
     </Routes>
   );
