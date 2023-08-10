@@ -11,6 +11,7 @@ const Sidebar = () => {
         <NavLink to="/players">Players</NavLink>
         <NavLink to="/managers">Managers</NavLink>
         <NavLink to="/teams">Teams</NavLink>
+         <NavLink to="/fixtures">Fixtures</NavLink>
         <NavLink to="/log">League Table</NavLink>
       </div>
     </div>
