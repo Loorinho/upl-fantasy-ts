@@ -8,6 +8,7 @@ import Teams from "./components/teams/Teams";
 import Managers from "./components/managers/Managers";
 import Layout from "./components/layout/Layout";
 import Table from "./components/tables/Table";
+import FixturesList from "./components/fixtures/FixtureList";
 
 function App() {
   return (

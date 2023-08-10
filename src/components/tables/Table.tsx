@@ -54,7 +54,7 @@ const Table = () => {
         </thead>
         <tbody className="divide-y divide-gray-400">
             {table?.map((team: any) => (
-              <tr key={player.id}>
+              <tr key={team.id}>
                 <td className="p-2 text-sm text-gray-700 ">{team.position}</td>
                 <td className="p-2 text-sm text-gray-700 ">{team.team}</td>
                 <td className="p-2 text-sm text-gray-700 ">{team.played}</td>
