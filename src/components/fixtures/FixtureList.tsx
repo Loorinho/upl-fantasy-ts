@@ -11,6 +11,7 @@ const FixturesList = () => {
   }
   useEffect(() => {
     fetchFixtures()
+    
   }, [])
   return (
     <div>Fixtures list</div>
