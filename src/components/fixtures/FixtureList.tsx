@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Fixture from './Fixture'
 import { useEffect, useState } from 'react';
 const FixturesList = () => {
   const [fixtures, setFixtures] = useState([])
@@ -7,7 +8,7 @@ const FixturesList = () => {
   try{
     const response = await axios.get(url)
     setFixtures(response.data?.fixtures)
-    // console.log(response.data.fixtures)
+   
   }catch(error){
     console.error(error)
   }
@@ -18,11 +19,12 @@ const FixturesList = () => {
   return (
     <div className="mt-5">
       {
-        fixtures?.map((fixture: any) => (
-         <div key={fixture.id} className="text-center">
-             <p><span className="mr-3">Team {fixture.home_team}</span> <span className="mr-3">{fixture.time}</span> <span>Team {fixture.away_team}</span></p>       
-         </div> 
-        ))
+        fixtures?.map((fixture: any) => {
+          <Fixture fixture={fixture} />
+         // <div key={fixture.id} className="text-center">
+         //     <p><span className="mr-3">Team {fixture.home_team}</span> <span className="mr-3">{fixture.time}</span> <span>Team {fixture.away_team}</span></p>       
+         // </div> 
+        })
       }
     </div>
   )
