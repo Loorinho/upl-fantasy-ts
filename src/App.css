@@ -3,43 +3,46 @@
 @tailwind utilities;
 
 
-.landing_page{
+.landing_page {
     background-image: url("./assets/images/landing.jpg");
     background-color: rgba(0, 0, 0, 0.6);
     background-blend-mode: multiply;
-     /* no-repeat center center fixed; */
+    /* no-repeat center center fixed; */
     background-size: cover;
     height: 100vh;
 }
 
-.player_table{
+.player_table {
     width: 800px;
 }
 
-.player-dialog::backdrop,.team-dialog::backdrop{
+.player-dialog::backdrop,
+.team-dialog::backdrop,
+.fixture-dialog::backdrop {
     background-color: rgba(0, 0, 0, 0.6);
 }
 
-.manager-dialog::backdrop{
-     background-color: rgba(0, 0, 0, 0.6);
+.manager-dialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.6);
 }
 
-.header{
+.header {
     height: 5rem;
     position: sticky;
     top: 0;
 }
 
-.sidebar{
-   height: calc(100vh - 5rem);
- 
+.sidebar {
+    height: calc(100vh - 5rem);
+
 }
 
 
-.nav_items > a{
+.nav_items>a {
     padding: 7px 20px
 }
-.nav_items a.active{
+
+.nav_items a.active {
     border-right: 5px solid rgb(60, 88, 250);
     background-color: rgb(96, 165, 250);
     color: white;

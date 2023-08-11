@@ -1,8 +1,10 @@
 import axios from "axios";
 import Fixture, { FixtureType } from "./Fixture";
 import { useEffect, useState, useRef } from "react";
+import CreateFixture from "./CreateFixture";
 const FixturesList = () => {
   const fixtureRef = useRef<HTMLDialogElement>(null);
+  // console.log(fixtureRef.current)
   const [fixtures, setFixtures] = useState([]);
 
   const fetchFixtures = async () => {
@@ -19,7 +21,7 @@ const FixturesList = () => {
   }, []);
   return (
     <div className="mt-5">
-      <button className="px-5 py-2 bg-blue-600 text-white rounded">
+      <button className="px-5 py-2 bg-blue-600 text-white rounded outline-none" onClick={() => fixtureRef.current?.showModal()}>
         Create Fixture
       </button>
       <div className="mt-5">
@@ -30,8 +32,8 @@ const FixturesList = () => {
         ))}
       </div>
 
-      <dialog ref={fixtureRef}>
-        <div>Create fixture </div>
+      <dialog ref={fixtureRef} className="fixture-dialog">
+        <CreateFixture ref={fixtureRef} />
       </dialog>
     </div>
   );
