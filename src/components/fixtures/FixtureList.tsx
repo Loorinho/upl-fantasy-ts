@@ -1,7 +1,8 @@
 import axios from 'axios';
 import Fixture from './Fixture'
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 const FixturesList = () => {
+  const fixtureRef = useRef<HTMLDialogElement>(null)
   const [fixtures, setFixtures] = useState([])
   const fetchFixtures = async () => {
     const url = "http://127.0.0.1:8000/api/fixtures";
@@ -18,14 +19,20 @@ const FixturesList = () => {
   }, []);
   return (
     <div className="mt-5">
-      {
-        fixtures?.map((fixture: any) => {
-          <Fixture fixture={fixture} />
-         // <div key={fixture.id} className="text-center">
-         //     <p><span className="mr-3">Team {fixture.home_team}</span> <span className="mr-3">{fixture.time}</span> <span>Team {fixture.away_team}</span></p>       
-         // </div> 
-        })
-      }
+     <button className="px-5 py-2 bg-blue-600 text-white rounded">
+       Create Fixture
+     </button>
+      <div className="mt-5">
+        {
+          fixtures?.map((fixture: any) => {
+            <Fixture fixture={fixture} />
+          })
+        }
+      </div>
+
+      <dialog ref={fixtureRef}>
+        <div>Create fixture </div>
+      </dialog>
     </div>
   )
 }
