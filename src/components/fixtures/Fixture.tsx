@@ -1,12 +1,12 @@
-export type Fixture = {
+export type FixtureType = {
   id: number,
   home_team: string,
   away_team: string,
   time: string
 }
 export type FixtureProps = {
-  fixture: Fixture
-}
+  fixture: FixtureType;
+};
 const Fixture = ({fixture}: FixtureProps ) => {
   return (
      <div key={fixture.id} className="text-center">
