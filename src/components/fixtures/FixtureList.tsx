@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { useEffect, useState } from 'react';
 const FixturesList = () => {
   const [fixtures, setFixtures] = useState([])
   const fetchFixtures = async () => {
@@ -6,21 +7,20 @@ const FixturesList = () => {
   try{
     const response = await axios.get(url)
     setFixtures(response.data?.fixtures)
-    console.log(response.data)
+    // console.log(response.data.fixtures)
   }catch(error){
     console.error(error)
   }
   }
   useEffect(() => {
-    fetchFixtures()
-    
-  }, [])
+    fetchFixtures();
+  }, []);
   return (
     <div className="mt-5">
       {
         fixtures?.map((fixture: any) => (
          <div key={fixture.id} className="text-center">
-             <p><span className="mr-3">{fixture.home_team}</span> <span className="mr-3">{fixture.time}</span> <span>{fixture.away_team}</span></p>       
+             <p><span className="mr-3">Team {fixture.home_team}</span> <span className="mr-3">{fixture.time}</span> <span>Team {fixture.away_team}</span></p>       
          </div> 
         ))
       }
@@ -28,4 +28,4 @@ const FixturesList = () => {
   )
 }
 
-export default FixturesList
+export default FixturesList;
