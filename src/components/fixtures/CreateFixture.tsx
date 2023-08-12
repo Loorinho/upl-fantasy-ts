@@ -1,4 +1,5 @@
 import { ChangeEvent, FormEvent, forwardRef, useState } from 'react'
+import axios from 'axios'
 type CreateFixtureProps = {}
 const CreateFixture = forwardRef((CreateFixtureProps, ref) => {
 
@@ -11,9 +12,26 @@ const CreateFixture = forwardRef((CreateFixtureProps, ref) => {
 
   const season = "2023/2024"
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    console.log("Form submitted")
+    const data = {
+      homeTeam, awayTeam, gameWeek, season, date, time
+    }
+    console.log("Data: ", data)
+
+    try{
+      const url = "http://localhost:8000/fixture/create"
+      const response = await axios.post(url, data, {
+        headers: {
+          'Accept': 'application/json'
+        }
+      })
+
+      console.log(response.data);
+    }catch(error){
+      console.error(error)
+    }
+    
   }
 
   return (
