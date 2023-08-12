@@ -10,6 +10,17 @@ export type Player = {
   age: number;
 };
 
+export type Fixture = {
+  id: number;
+  season: string;
+  homeTeam: number;
+  awayTeam: number;
+  position: string;
+  stadium: string;
+  date: string;
+  time: string; 
+};
+
 export type Team = {
   id: number;
   name: string;
@@ -87,4 +98,31 @@ export const createManager = async (data: any) => {
   });
 
   return response.data.message;
+};
+
+export const fetchFixtures = async () => {
+  const url = "http://127.0.0.1:8000/api/fixtures";
+  const response = await axios.get(url);
+  const fictures: Fixture[] = response.data.fixtures.map((fixture: any) => {
+    return {
+      id: fixture.id,
+      homeTeam: fixture.home_team,
+      awayTeam: fixture.away_team,
+      season: fixture.season,
+      date: fixture.date,
+      time: fixture.time,
+      stadium: fixture.stadium,
+    };
+  });
+  return fixtures;
+}; 
+
+export const createFixture = async (data: any) => {
+  const url = "http://127.0.0.1:8000/api/fixtures";
+  const response = await axios.post(url, data, {
+    headers: {
+      "Content-Type": "application/json",
+    }
+  });
+  return response.data;
 };
