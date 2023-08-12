@@ -8,14 +8,12 @@ const CreateFixture = forwardRef((CreateFixtureProps, ref) => {
   // const [season, setSeason] = useState("2023/2024")
 
   const season = "2023/2024"
-  console.log(ref)
-  
+
   return (
-    <div className="rounded p-2" style={{width: 500, height: 500}}>
+    <div className="rounded-lg p-2" style={{width: 500, height: 400}}>
       <p className="text-center">Create a fixture here</p> 
 
       <form className="py-4 relative">
-
         <button className="bg-red-400 w-5 h-5 text-white text-center rounded-full outline-none absolute right-0 -top-4" onClick={()=>ref.current?.close()}>
           X
         </button>
@@ -48,8 +46,8 @@ const CreateFixture = forwardRef((CreateFixtureProps, ref) => {
           </div>
         </div>
 
-        <div className="flex justify-center items-center">
-          <button className="w-full px-2 py-3 text-white text-center bg-blue-600">Create Fixture</button>
+        <div className="flex justify-center items-center mt-4">
+          <button className="w-full px-2 py-2.4 text-white text-center bg-blue-600">Create Fixture</button>
         </div>
       </form>  
     </div>
