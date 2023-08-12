@@ -1,4 +1,4 @@
-import { forwardRef, useState } from 'react
+import { ChangeEvent, forwardRef, useState } from 'react'
 type CreateFixtureProps = {}
 const CreateFixture = forwardRef((CreateFixtureProps, ref) => {
 
@@ -16,13 +16,13 @@ const CreateFixture = forwardRef((CreateFixtureProps, ref) => {
           <div className="col-span-6">
             <label>Game Week</label>
             <input type="text" className="w-full p-2 outline-none border border-2-blue-500 focus:ring-1 focus:ring-blue-600 rounded"  value={gameWeek}
-             onChange={(e)=> setGameWeek(e.target.value)} 
+             onChange={(e: ChangeEvent<HTMLInputElement>)=> setGameWeek(+e.target.value)} 
               />
           </div>
           <div className="col-span-6">
             <label>Season</label>
              <input type="text" className="w-full p-2 outline-none border border-2-blue-500 focus:ring-1 focus:ring-blue-600 rounded"  value={season}
-             onChange={(e)=> setSeason(e.target.value)} 
+             onChange={(e: ChangeEvent<HTMLInputElement>)=> setSeason(e.target.value)} 
               />
           </div>
         </div>
@@ -30,13 +30,13 @@ const CreateFixture = forwardRef((CreateFixtureProps, ref) => {
           <div className="col-span-6">
             <label>Home team</label>
             <input type="text" className="w-full p-2 outline-none border border-2-blue-500 focus:ring-1 focus:ring-blue-600 rounded"  value={homeTeam}
-             onChange={(e)=> setHomeTeam(e.target.value)} 
+             onChange={(e: ChangeEvent<HTMLInputElement>)=> setHomeTeam(+e.target.value)} 
               />
           </div>
           <div className="col-span-6">
-            <label>Home team</label>
+            <label>Away team</label>
              <input type="text" className="w-full p-2 outline-none border border-2-blue-500 focus:ring-1 focus:ring-blue-600 rounded"  value={awayTeam}
-             onChange={(e)=> setAwayTeam(e.target.value)} 
+             onChange={(e: ChangeEvent<HTMLInputElement>)=> setAwayTeam(+e.target.value)} 
               />
           </div>
         </div>
