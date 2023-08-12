@@ -5,12 +5,14 @@ const CreateFixture = forwardRef((CreateFixtureProps, ref) => {
   const [homeTeam, setHomeTeam] = useState(0)
   const [awayTeam, setAwayTeam] = useState(0)
   const [gameWeek, setGameWeek] = useState(1)
+  const [date, setDate] = useState("")
+  const [time, setTime] = useState("")
   // const [season, setSeason] = useState("2023/2024")
 
   const season = "2023/2024"
 
   return (
-    <div className="rounded-lg p-2" style={{width: 500, height: 400}}>
+    <div className="rounded-lg p-2" style={{width: 500, height: 300}}>
       <p className="text-center">Create a fixture here</p> 
 
       <form className="py-4 relative">
@@ -46,8 +48,23 @@ const CreateFixture = forwardRef((CreateFixtureProps, ref) => {
           </div>
         </div>
 
-        <div className="flex justify-center items-center mt-4">
-          <button className="w-full px-2 py-2.4 text-white text-center bg-blue-600">Create Fixture</button>
+        <div className="grid grid-cols-12 gap-2">
+          <div className="col-span-6">
+            <label>Kickoff</label>
+            <input type="time" className="w-full p-2 outline-none border border-2-blue-500 focus:ring-1 focus:ring-blue-600 rounded"  value={time}
+             onChange={(e: ChangeEvent<HTMLInputElement>)=> setTime(e.target.value)} 
+              />
+          </div>
+          <div className="col-span-6">
+            <label>Date</label>
+             <input type="date" className="w-full p-2 outline-none border border-2-blue-500 focus:ring-1 focus:ring-blue-600 rounded"  value={date}
+             onChange={(e: ChangeEvent<HTMLInputElement>)=> setDate(e.target.value)} 
+              />
+          </div>
+        </div>
+
+        <div className="flex justify-center items-center mt-4 mb-2">
+          <button className="w-full px-5 py-2 text-white text-center bg-blue-600">Create Fixture</button>
         </div>
       </form>  
     </div>
