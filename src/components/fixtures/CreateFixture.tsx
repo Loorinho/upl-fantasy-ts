@@ -5,7 +5,10 @@ const CreateFixture = forwardRef((CreateFixtureProps, ref) => {
   const [homeTeam, setHomeTeam] = useState(0)
   const [awayTeam, setAwayTeam] = useState(0)
   const [gameWeek, setGameWeek] = useState(1)
-  const [season, setSeason] = useState("2023/2024")
+  // const [season, setSeason] = useState("2023/2024")
+
+  const season = "2023/2024"
+  console.log(ref)
   
   return (
     <div className="rounded p-2" style={{width: 500, height: 500}}>
@@ -13,7 +16,7 @@ const CreateFixture = forwardRef((CreateFixtureProps, ref) => {
 
       <form className="py-4 relative">
 
-        <button className="bg-red-400 w-4 h-4 text-white rounded-full outline-none absolute right-0" onClick={()=>ref.model?.close()}>
+        <button className="bg-red-400 w-5 h-5 text-white text-center rounded-full outline-none absolute right-0 -top-4" onClick={()=>ref.current?.close()}>
           X
         </button>
         <div className="grid grid-cols-12 gap-2">
@@ -25,8 +28,8 @@ const CreateFixture = forwardRef((CreateFixtureProps, ref) => {
           </div>
           <div className="col-span-6">
             <label>Season</label>
-             <input type="text" className="w-full p-2 outline-none border border-2-blue-500 focus:ring-1 focus:ring-blue-600 rounded"  value={season}
-             onChange={(e: ChangeEvent<HTMLInputElement>)=> setSeason(e.target.value)} 
+             <input type="text" className="w-full p-2 outline-none border border-2-blue-500 focus:ring-1 focus:ring-blue-600 rounded"  value={season} disabled
+            //  onChange={(e: ChangeEvent<HTMLInputElement>)=> setSeason(e.target.value)} 
               />
           </div>
         </div>
