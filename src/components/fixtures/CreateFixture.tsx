@@ -11,7 +11,11 @@ const CreateFixture = forwardRef((CreateFixtureProps, ref) => {
     <div className="rounded p-2" style={{width: 500, height: 500}}>
       <p className="text-center">Create a fixture here</p> 
 
-      <form className="py-4">
+      <form className="py-4 relative">
+
+        <button className="bg-red-400 w-4 h-4 text-white rounded-full outline-none absolute right-0">
+          X
+        </button>
         <div className="grid grid-cols-12 gap-2">
           <div className="col-span-6">
             <label>Game Week</label>
