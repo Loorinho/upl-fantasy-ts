@@ -12,7 +12,7 @@ const CreateFixture = forwardRef((CreateFixtureProps, ref) => {
       <p className="text-center">Create a fixture here</p> 
 
       <form className="py-4">
-        <div className="grid grid-cols-12">
+        <div className="grid grid-cols-12 gap-2">
           <div className="col-span-6">
             <label>Game Week</label>
             <input type="text" className="w-full p-2 outline-none border border-2-blue-500 focus:ring-1 focus:ring-blue-600 rounded"  value={gameWeek}
@@ -26,7 +26,7 @@ const CreateFixture = forwardRef((CreateFixtureProps, ref) => {
               />
           </div>
         </div>
-         <div className="grid grid-cols-12">
+         <div className="grid grid-cols-12 gap-2">
           <div className="col-span-6">
             <label>Home team</label>
             <input type="text" className="w-full p-2 outline-none border border-2-blue-500 focus:ring-1 focus:ring-blue-600 rounded"  value={homeTeam}
@@ -42,7 +42,7 @@ const CreateFixture = forwardRef((CreateFixtureProps, ref) => {
         </div>
 
         <div className="flex justify-center items-center">
-          <button className="w-full px-2 py-3 text-white text-center">Create Fixture</button>
+          <button className="w-full px-2 py-3 text-white text-center bg-blue-600">Create Fixture</button>
         </div>
       </form>  
     </div>
