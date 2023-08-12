@@ -13,7 +13,7 @@ const CreateFixture = forwardRef((CreateFixtureProps, ref) => {
 
       <form className="py-4 relative">
 
-        <button className="bg-red-400 w-4 h-4 text-white rounded-full outline-none absolute right-0">
+        <button className="bg-red-400 w-4 h-4 text-white rounded-full outline-none absolute right-0" onClick={()=>ref.model?.close()}>
           X
         </button>
         <div className="grid grid-cols-12 gap-2">
