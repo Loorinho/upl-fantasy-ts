@@ -1,24 +1,28 @@
-import axios from "axios";
-import Fixture, { FixtureType } from "./Fixture";
-import { useEffect, useState, useRef } from "react";
+import { useRef, useMemo } from "react";
 import CreateFixture from "./CreateFixture";
+import useUplStore from "../../zustand/uplStore";
+import { FixtureType, fetchFixtures } from "../../zustand/api/api";
+import { useQuery } from "@tanstack/react-query";
+import Fixture from "./Fixture";
 const FixturesList = () => {
   const fixtureRef = useRef<HTMLDialogElement>(null);
   // console.log(fixtureRef.current)
-  const [fixtures, setFixtures] = useState([]);
+  // const [fixtures, setFixtures] = useState([]);
 
-  const fetchFixtures = async () => {
-    const url = "http://127.0.0.1:8000/api/fixtures";
-    try {
-      const response = await axios.get(url);
-      setFixtures(response.data?.fixtures);
-    } catch (error) {
-      console.error(error);
+  const { data: myFixtures, isSuccess } = useQuery({
+    queryKey: ["fixtures"],
+    queryFn: fetchFixtures,
+  });
+
+  const fixtures = useUplStore((state) => state.fixtures);
+  const setFixtures = useUplStore((state) => state.setFixtures);
+
+  useMemo(() => {
+    if (isSuccess) {
+      setFixtures(myFixtures);
     }
-  };
-  useEffect(() => {
-    fetchFixtures();
   }, []);
+
   return (
     <div className="mt-5">
       <button
@@ -29,8 +33,12 @@ const FixturesList = () => {
       </button>
       <div className="mt-5">
         {fixtures?.map((fixture: FixtureType) => (
-          <div key={fixture.id}>
-            <Fixture fixture={fixture} />
+          <div key={fixture.id} className="text-center">
+            <p>
+              <span className="mr-3">Team {fixture.homeTeam}</span>
+              <span className="mr-3">{fixture.time}</span>
+              <span>Team {fixture.awayTeam}</span>
+            </p>
           </div>
         ))}
       </div>

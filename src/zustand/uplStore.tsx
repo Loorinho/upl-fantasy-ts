@@ -1,15 +1,16 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { Manager, Player, Team } from "./api/api";
+import { Manager, Player, Team, FixtureType } from "./api/api";
 
 type UplStore = {
-  teams: Team[],
-  setTeams: (team: Team[]) => void,
-  players: Player[],
-  setPlayers: (team: Player[]) => void,
-  managers: Manager[],
-  setManagers: (managers: Manager[]) => void,
-  
+  teams: Team[];
+  setTeams: (team: Team[]) => void;
+  players: Player[];
+  setPlayers: (team: Player[]) => void;
+  managers: Manager[];
+  setManagers: (managers: Manager[]) => void;
+  fixtures: FixtureType[];
+  setFixtures: (fixtures: FixtureType[]) => void;
 };
 
 const useUplStore = create<UplStore>()(
@@ -18,6 +19,7 @@ const useUplStore = create<UplStore>()(
       teams: [],
       players: [],
       managers: [],
+      fixtures: [],
       setTeams: (_teams: Team[]) => {
         const allteams = _teams?.map((team) => {
           return {
@@ -39,7 +41,7 @@ const useUplStore = create<UplStore>()(
             foot: player.foot,
             position: player.position,
             age: player.age,
-            shirt_number: player.shirt_number
+            shirt_number: player.shirt_number,
           };
         });
         set({ players: allPlayers });
@@ -56,6 +58,20 @@ const useUplStore = create<UplStore>()(
         });
         set({ managers: allManagers });
       },
+      setFixtures: (_fixtures: FixtureType[]) => {
+        const allFixtures: FixtureType[] = _fixtures?.map((fixture) => {
+          return {
+            id: fixture.id,
+            homeTeam: fixture.homeTeam,
+            awayTeam: fixture.awayTeam,
+            season: fixture?.season,
+            date: fixture.date,
+            time: fixture.time,
+            stadium: fixture.stadium,
+          };
+        });
+        set({ fixtures: allFixtures });
+      },
     }),
     {
       name: "upl-store",
@@ -63,4 +79,4 @@ const useUplStore = create<UplStore>()(
   )
 );
 
-export default useUplStore
+export default useUplStore;

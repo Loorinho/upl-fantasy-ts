@@ -1,8 +1,14 @@
-import { ChangeEvent, FormEvent, forwardRef, useState } from "react";
+import { ChangeEvent, FormEvent, forwardRef, useEffect, useMemo, useState } from "react";
 import axios from "axios";
-import { toast } from "react-toastify";
+
+import { successNotification } from "../utilities/utilities";
+import useUplStore from "../../zustand/uplStore";
+
+import { FixtureType } from "../../zustand/api/api";
 type CreateFixtureProps = {};
 const CreateFixture = forwardRef((CreateFixtureProps, ref) => {
+  const setFixtures = useUplStore(state => state.setFixtures)
+  const [data, setData] = useState<FixtureType[]>([])
   const [homeTeam, setHomeTeam] = useState(0);
   const [awayTeam, setAwayTeam] = useState(0);
   const [gameWeek, setGameWeek] = useState(1);
@@ -15,18 +21,6 @@ const CreateFixture = forwardRef((CreateFixtureProps, ref) => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 
-    const notify = async (message: string) => {
-      toast.success(message, {
-        position: "top-center",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-    }
     e.preventDefault();
     const data = {
       homeTeam,
@@ -59,15 +53,22 @@ const CreateFixture = forwardRef((CreateFixtureProps, ref) => {
         }
       );
       if (response.status == 200) {
-        notify(response.data.message)
+        successNotification(response.data.message);
+        setFixtures(response.data.fixtures)
+        // setData(response.data.fixtures)
         ref?.current?.close();
       }
+
 
       console.log(response.data);
     } catch (error) {
       console.error(error);
     }
   };
+
+  //  useEffect(() => {
+  //    setFixtures(data);
+  //  }, []);
 
   return (
     <div className="py-2" style={{ width: 500, height: 420 }}>

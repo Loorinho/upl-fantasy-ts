@@ -1,16 +1,13 @@
-export type FixtureType = {
-  id: number,
-  home_team: string,
-  away_team: string,
-  time: string
-}
+import { FixtureType } from "../../zustand/api/api";
+
 export type FixtureProps = {
   fixture: FixtureType;
 };
 const Fixture = ({fixture}: FixtureProps ) => {
+  console.log(fixture)
   return (
      <div key={fixture.id} className="text-center">
-        <p><span className="mr-3">Team {fixture.home_team}</span> <span className="mr-3">{fixture.time}</span> <span>Team {fixture.away_team}</span></p>       
+        <p><span className="mr-3">Team {fixture.homeTeam}</span> <span className="mr-3">{fixture.time}</span> <span>Team {fixture.awayTeam}</span></p>       
      </div> 
   )
 }
