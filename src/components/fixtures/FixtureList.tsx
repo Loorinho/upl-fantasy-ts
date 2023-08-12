@@ -21,7 +21,10 @@ const FixturesList = () => {
   }, []);
   return (
     <div className="mt-5">
-      <button className="px-5 py-2 bg-blue-600 text-white rounded outline-none" onClick={() => fixtureRef.current?.showModal()}>
+      <button
+        className="px-5 py-2 bg-blue-600 text-white rounded outline-none"
+        onClick={() => fixtureRef.current?.showModal()}
+      >
         Create Fixture
       </button>
       <div className="mt-5">
@@ -32,7 +35,7 @@ const FixturesList = () => {
         ))}
       </div>
 
-      <dialog ref={fixtureRef} className="fixture-dialog">
+      <dialog ref={fixtureRef} className="fixture-dialog rounded-lg px-2">
         <CreateFixture ref={fixtureRef} />
       </dialog>
     </div>
