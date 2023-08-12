@@ -1,47 +1,79 @@
-import { ChangeEvent, FormEvent, forwardRef, useState } from 'react'
-import axios from 'axios'
-type CreateFixtureProps = {}
+import { ChangeEvent, FormEvent, forwardRef, useState } from "react";
+import axios from "axios";
+import { toast } from "react-toastify";
+type CreateFixtureProps = {};
 const CreateFixture = forwardRef((CreateFixtureProps, ref) => {
-
-  const [homeTeam, setHomeTeam] = useState(0)
-  const [awayTeam, setAwayTeam] = useState(0)
-  const [gameWeek, setGameWeek] = useState(1)
-  const [date, setDate] = useState("")
-  const [time, setTime] = useState("")
+  const [homeTeam, setHomeTeam] = useState(0);
+  const [awayTeam, setAwayTeam] = useState(0);
+  const [gameWeek, setGameWeek] = useState(1);
+  const [date, setDate] = useState("");
+  const [time, setTime] = useState("");
+  const [stadium, setStadium] = useState("");
   // const [season, setSeason] = useState("2023/2024")
 
-  const season = "2023/2024"
+  const season = "2023/2024";
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    const data = {
-      homeTeam, awayTeam, gameWeek, season, date, time
-    }
-    console.log("Data: ", data)
 
-    try{
-      const url = "http://localhost:8000/fixture/create"
-      const response = await axios.post(url, data, {
-        headers: {
-          'Accept': 'application/json'
+    const notify = async (message: string) => {
+      toast.success(message, {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
+    e.preventDefault();
+    const data = {
+      homeTeam,
+      awayTeam,
+      gameWeek,
+      season,
+      date,
+      time,
+      stadium,
+    };
+    console.log("Data: ", data);
+
+    try {
+      const url = "http://localhost:8000/api/fixtures";
+      const response = await axios.post(
+        url,
+        {
+          homeTeam,
+          awayTeam,
+          gameWeek,
+          season,
+          date,
+          time,
+          stadium,
+        },
+        {
+          headers: {
+            'Accept': "application/json",
+          },
         }
-      })
+      );
+      if (response.status == 200) {
+        notify(response.data.message)
+        ref?.current?.close();
+      }
 
       console.log(response.data);
-    }catch(error){
-      console.error(error)
+    } catch (error) {
+      console.error(error);
     }
-    
-  }
+  };
 
   return (
-    <div className="py-2" style={{ width: 500, height: 346 }}>
+    <div className="py-2" style={{ width: 500, height: 420 }}>
       <p className="text-center">Create a fixture here</p>
 
-      <form
-        className="py-4 relative"
-        onSubmit={(e) => handleSubmit(e)}
-      >
+      <form className="py-4 relative" onSubmit={(e) => handleSubmit(e)}>
         <button
           type="button"
           className="bg-red-400 w-5 h-5 text-white text-center rounded-full outline-none absolute right-0 -top-5"
@@ -96,6 +128,19 @@ const CreateFixture = forwardRef((CreateFixtureProps, ref) => {
             />
           </div>
         </div>
+        <div className="grid grid-cols-12 gap-2 mb-2">
+          <div className="col-span-12">
+            <label>Stadium</label>
+            <input
+              type="text"
+              className="w-full p-2 outline-none border border-2-blue-500 focus:ring-1 focus:ring-blue-600 rounded"
+              value={stadium}
+              onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                setStadium(e.target.value)
+              }
+            />
+          </div>
+        </div>
 
         <div className="grid grid-cols-12 gap-2">
           <div className="col-span-6">
@@ -133,6 +178,6 @@ const CreateFixture = forwardRef((CreateFixtureProps, ref) => {
       </form>
     </div>
   );
-})
+});
 
-export default CreateFixture
+export default CreateFixture;

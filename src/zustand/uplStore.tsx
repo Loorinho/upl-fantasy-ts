@@ -9,6 +9,7 @@ type UplStore = {
   setPlayers: (team: Player[]) => void,
   managers: Manager[],
   setManagers: (managers: Manager[]) => void,
+  
 };
 
 const useUplStore = create<UplStore>()(
