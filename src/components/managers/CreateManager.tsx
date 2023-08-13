@@ -3,29 +3,10 @@ import useUplStore from "../../zustand/uplStore";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createManager } from "../../zustand/api/api";
 import { toast } from "react-toastify";
+import axios from 'axios'
 type CreateManagerProps = {};
 
-const CreateManager = forwardRef<HTMLDialogElement | HTMLParagraphElement, CreateManagerProps>(({},ref) => {
-
-  const notify = async (message: string) => {
-    await toast.success(message, {
-      position: "top-center",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-    console.log("Notification done");
-    if(ref !== null){
-        ref?.current?.close();
-    }
-    // ref.current?.close();
-  };
-  // console.log(modal)
-  const queryClient = useQueryClient();
+const CreateManager = forwardRef<HTMLDialogElement | HTMLParagraphElement, CreateManagerProps>((CreateManagerProps,ref) => {
 
   const teams = useUplStore((state) => state.teams);
   const [firstName, setfirstName] = useState("");
@@ -33,39 +14,28 @@ const CreateManager = forwardRef<HTMLDialogElement | HTMLParagraphElement, Creat
   const [age, setAge] = useState(0);
   const [team, setTeam] = useState(teams[0].id);
 
-  const { mutate: addManager, data } = useMutation(createManager, {
-    onSuccess: () => {
-      notify(data);
-
-      queryClient.invalidateQueries(["managers"]);
-    },
-  });
-
-  async function handleSubmit() {
-    // e.preventDefault();
-    // console.log("submitted manager");
-
-    const manager = {
+   const handleSubmit = async (e) {
+    e.preventDefault();
+      const manager = {
       firstName,
       lastName,
       age,
       teamId: 1,
     };
-
-    addManager({
-      firstName,
-      lastName,
-      age,
-      teamId: 1,
-    });
+    try{
+      const url = "http://localhost:8000/api/managers"
+      const response = await axios.post(url, { firstName,lastName,age,teamId: 1 } ,{
+        headers: { "Accept": "application/json"}
+      })
+      console.log(response.data)
+    }catch(error){console.error(error)}
   }
-
   return (
     <div>
       <form
         style={{ width: "500px" }}
         className="rounded-md p-1 relative"
-        // onSubmit={(e: React.ChangeEvent<HTMLSelectElement>) => handleSubmit}
+        onSubmit={(e) => handleSubmit(e)}
       >
         <p ref={ref}className="w-5 h-5 bg-red-600 text-white absolute right-1 cursor-pointer rounded-full text-center"
         onClick={() => ref?.current?.close()}
@@ -132,9 +102,8 @@ const CreateManager = forwardRef<HTMLDialogElement | HTMLParagraphElement, Creat
 
         <div className="flex justify-center items-center my-3">
           <button
-            // type="submit"
+            type="submit"
             className="bg-blue-600 rounded text-white px-3 py-2 w-full"
-            onClick={() => handleSubmit()}
           >
             Create manager
           </button>
