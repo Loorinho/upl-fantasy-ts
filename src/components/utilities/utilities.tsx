@@ -1,7 +1,7 @@
 import { toast } from "react-toastify";
 
 export const successNotification = async (message: string) => {
-  toast.success(message, {
+  await toast.success(message, {
     position: "top-center",
     autoClose: 2000,
     hideProgressBar: false,
