@@ -1,12 +1,10 @@
-import { forwardRef, useRef, useState } from "react";
+import { FormEvent, forwardRef, useState } from "react";
 import useUplStore from "../../zustand/uplStore";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createManager } from "../../zustand/api/api";
-import { toast } from "react-toastify";
+
 import axios from 'axios'
 type CreateManagerProps = {};
 
-const CreateManager = forwardRef<HTMLDialogElement | HTMLParagraphElement, CreateManagerProps>((CreateManagerProps,ref) => {
+const CreateManager = forwardRef<HTMLDialogElement, CreateManagerProps>((CreateManagerProps,ref) => {
 
   const teams = useUplStore((state) => state.teams);
   const [firstName, setfirstName] = useState("");
@@ -14,20 +12,17 @@ const CreateManager = forwardRef<HTMLDialogElement | HTMLParagraphElement, Creat
   const [age, setAge] = useState(0);
   const [team, setTeam] = useState(teams[0].id);
 
-   const handleSubmit = async (e) {
+   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-      const manager = {
-      firstName,
-      lastName,
-      age,
-      teamId: 1,
-    };
+ 
     try{
       const url = "http://localhost:8000/api/managers"
-      const response = await axios.post(url, { firstName,lastName,age,teamId: 1 } ,{
+      const response = await axios.post(url, { firstName,lastName,age,teamId: team } ,{
         headers: { "Accept": "application/json"}
       })
       console.log(response.data)
+
+      ref?.current?.close()
     }catch(error){console.error(error)}
   }
   return (
