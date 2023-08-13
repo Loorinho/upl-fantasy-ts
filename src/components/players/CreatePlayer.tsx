@@ -1,18 +1,13 @@
-import { useState, forwardRef } from "react";
+import { useState, forwardRef, FormEvent } from "react";
 import useUplStore from "../../zustand/uplStore";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Player } from "../../zustand/api/api";
 
 type CreatePlayerProps = {};
 const CreatePlayer = forwardRef<HTMLDialogElement, CreatePlayerProps>(
   ({}, ref) => {
-    const mymodal = document.querySelector(
-      "#player-dialog"
-    ) as HTMLDialogElement;
-    // console.log(ref?.current);
-
-    const navigate = useNavigate();
     const teams = useUplStore((state) => state.teams);
+    const setPlayers = useUplStore(state => state.setPlayers)
 
     const playerfoot = ["Left", "Right", "Both"];
     const playerposition = [
@@ -38,8 +33,8 @@ const CreatePlayer = forwardRef<HTMLDialogElement, CreatePlayerProps>(
 
     const [shirtNumber, setShirtNumber] = useState(0);
 
-    async function handleSubmit() {
-      // e.preventDefault();
+    async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+      e.preventDefault();
 
       const player = {
         firstName,
@@ -72,21 +67,32 @@ const CreatePlayer = forwardRef<HTMLDialogElement, CreatePlayerProps>(
         );
 
         if (response.data) {
-          mymodal?.close();
+          ref.current?.close();
+          const newplayers: Player[] = response.data?.players.map(
+            (player: Player) => {
+              return {
+                id: player.id,
+                first_name: player.first_name,
+                last_name: player.last_name,
+                shirt_number: player.shirt_number,
+                position: player.position,
+                foot: player.foot,
+                age: player.age,
+              };
+            }
+          );
+          setPlayers(newplayers);
         }
-
-        navigate("/players");
       } catch (error) {
         console.error(error);
       }
     }
-
     return (
       <div className="">
         <form
           style={{ width: "500px" }}
           className="rounded-md p-1"
-          // onSubmit={(e: React.ChangeEvent<HTMLSelectElement>) => handleSubmit}
+          onSubmit={(e) => handleSubmit(e)}
         >
           <p
             className="absolute right-3 rounded-full text-center bg-red-600 h-5 w-5 text-white cursor-pointer"
@@ -214,9 +220,8 @@ const CreatePlayer = forwardRef<HTMLDialogElement, CreatePlayerProps>(
 
           <div className="flex justify-center items-center my-3">
             <button
-              type="button"
+              type="submit"
               className="bg-blue-600 rounded text-white px-3 py-2 w-full"
-              onClick={() => handleSubmit()}
             >
               Create player
             </button>
