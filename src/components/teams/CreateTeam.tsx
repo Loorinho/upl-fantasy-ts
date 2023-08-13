@@ -4,6 +4,8 @@ import axios from 'axios'
 type CreateTeamProps = {}
 const CreateTeam = forwardRef<HTMLDialogElement, CreateTeamProps>((CreateTeamProps, ref) => {
 
+  const setTeams = useUPLStore(state => state.setTeams)
+
   const [name, setName] = useState("")
   const [city, setCity] = useState("")
 
@@ -25,6 +27,7 @@ const CreateTeam = forwardRef<HTMLDialogElement, CreateTeamProps>((CreateTeamPro
         }
       );
       console.log(response.data);
+      setTeams(response.data?.teams)
       ref?.current?.close();
     } catch (error) {
       console.error(error);
