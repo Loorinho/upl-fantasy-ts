@@ -28,10 +28,9 @@ const CreateTeam = forwardRef<HTMLDialogElement, CreateTeamProps>(
             },
           }
         );
-        console.log(response.data);
         setTeams(response.data?.teams);
         ref?.current?.close();
-        // successNotification(response.data?.message);
+        successNotification(response.data?.message);
       } catch (error) {
         console.error(error);
       }
@@ -78,7 +77,6 @@ const CreateTeam = forwardRef<HTMLDialogElement, CreateTeamProps>(
             <button
               type="submit"
               className="bg-blue-600 rounded text-white px-3 py-2 w-full"
-              // onClick={() => handleSubmit()}
             >
               Create team
             </button>
