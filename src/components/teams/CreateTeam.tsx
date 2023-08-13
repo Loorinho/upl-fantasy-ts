@@ -1,4 +1,4 @@
-import { forwardRef, useState } from 'react'
+import { FormEvent, forwardRef, useState } from 'react'
 import axios from 'axios'
 
 type CreateTeamProps = {}
@@ -7,24 +7,29 @@ const CreateTeam = forwardRef<HTMLDialogElement, CreateTeamProps>((CreateTeamPro
   const [name, setName] = useState("")
   const [city, setCity] = useState("")
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     const data = {
-        name,
-        city
-    }
-    try{
-      const url = "http://localhost:8000/api/teams"
-      const response  = await axios.post(url,{ name,city}, {
-        headers: {
-          "Accept": "application/json"
+      name,
+      city,
+    };
+    try {
+      const url = "http://localhost:8000/api/teams";
+      const response = await axios.post(
+        url,
+        { name, city },
+        {
+          headers: {
+            Accept: "application/json",
+          },
         }
-      })
-      console.log(response.data)  
-    }catch(error){
-      console.error(error)
+      );
+      console.log(response.data);
+      ref?.current?.close();
+    } catch (error) {
+      console.error(error);
     }
-  }
+  };
   return <div className="px-4 py-2">
    <form
         style={{ width: "450px" }}
@@ -48,7 +53,7 @@ const CreateTeam = forwardRef<HTMLDialogElement, CreateTeamProps>((CreateTeamPro
               />
             </div>
             <div className="mt-2">
-              <label className="text-gray-600 block text-sm">Last name</label>
+              <label className="text-gray-600 block text-sm">City</label>
               <input
                 type="text"
                 value={city}
