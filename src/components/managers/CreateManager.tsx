@@ -1,5 +1,6 @@
 import { FormEvent, forwardRef, useState } from "react";
 import useUplStore from "../../zustand/uplStore";
+import { successNotification } from "../utilities/utilities";
 
 import axios from 'axios'
 type CreateManagerProps = {};
@@ -23,6 +24,7 @@ const CreateManager = forwardRef<HTMLDialogElement, CreateManagerProps>((CreateM
       console.log(response.data)
 
       ref?.current?.close()
+      successNotification(response.data.message)
     }catch(error){console.error(error)}
   }
   return (
