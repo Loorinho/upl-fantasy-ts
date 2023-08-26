@@ -9,6 +9,13 @@ const Managers = () => {
   function showModal() {
     managerRef.current?.showModal();
   }
+    // function showModal() {
+    //   playerRef.current?.showModal();
+    // }
+    function closeModal() {
+      managerRef.current?.close();
+    }
+
 
   return (
     <>
@@ -16,7 +23,7 @@ const Managers = () => {
         <div className="m-4">
           <button
             className="px-4 py-1.5 rounded bg-blue-600 text-white outline-none"
-            onClick={() => managerRef?.current?.showModal()}
+            onClick={showModal}
           >
             Create Manager
           </button>
@@ -58,7 +65,7 @@ const Managers = () => {
         id="manager-dialog"
         ref={managerRef}
       >
-        <CreateManager ref={managerRef} />
+        <CreateManager ref={managerRef} closeModal={closeModal} />
       </dialog>
     </>
   );
