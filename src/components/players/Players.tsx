@@ -8,6 +8,9 @@ const Players = () => {
   function showModal() {
     playerRef.current?.showModal();
   }
+   function closeModal() {
+     playerRef.current?.close();
+   }
 
   return (
     <>
@@ -15,7 +18,7 @@ const Players = () => {
         <div className="m-4">
           <button
             className="px-4 py-1.5 rounded bg-blue-600 text-white outline-none"
-            onClick={() => showModal()}
+            onClick={showModal}
           >
             Create player
           </button>
@@ -69,7 +72,7 @@ const Players = () => {
         id="player-dialog"
         ref={playerRef}
       >
-        <CreatePlayer ref={playerRef} />
+        <CreatePlayer ref={playerRef} closeModal={closeModal} />
       </dialog>
     </>
   );
