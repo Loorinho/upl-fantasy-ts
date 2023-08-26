@@ -10,10 +10,11 @@ type CreateManagerProps = {
 const CreateManager = forwardRef<HTMLDialogElement, CreateManagerProps>(
   ({ closeModal }, ref) => {
     const teams = useUplStore((state) => state.teams);
-    const [firstName, setfirstName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [age, setAge] = useState(0);
-    const [team, setTeam] = useState(teams[0].id);
+    const setManagers = useUplStore((state) => state.setManagers);
+    // const [firstName, setfirstName] = useState("");
+    // const [lastName, setLastName] = useState("");
+    // const [age, setAge] = useState(0);
+    // const [team, setTeam] = useState(teams[0].id);
 
     // Manager state
     const [manager, setManager] = useState({
@@ -33,8 +34,39 @@ const CreateManager = forwardRef<HTMLDialogElement, CreateManagerProps>(
 
     const managerSubmit = async (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      console.log("Manager: ", manager);
-    };
+      // console.log("Manager: ", { ...manager, age: +manager.age });
+        try {
+          const url = "http://localhost:8000/api/managers";
+          const response = await axios.post(
+            url,
+           { ...manager, age: +manager.age},
+            {
+              headers: { Accept: "application/json" },
+            }
+          );
+          const managersData = response.data?.managers.map((manager: any) => {
+            return {
+              id: manager.id,
+              first_name: manager.first_name,
+              last_name: manager.last_name,
+              team: manager?.team,
+              age: manager.age,
+            };
+          });
+
+          setManagers(managersData);
+
+          // console.log(response.data);
+
+          // ref?.current?.close();
+          closeModal();
+          successNotification(response.data.message);
+          // console.log("Response:", response.data)
+        } catch (error) {
+          console.error(error);
+        }
+      };
+    
 
     // const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     //   e.preventDefault();
