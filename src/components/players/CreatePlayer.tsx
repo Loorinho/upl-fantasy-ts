@@ -3,11 +3,13 @@ import useUplStore from "../../zustand/uplStore";
 import axios from "axios";
 import { Player } from "../../zustand/api/api";
 
-type CreatePlayerProps = {};
+type CreatePlayerProps = {
+  closeModal: () => void;
+};
 const CreatePlayer = forwardRef<HTMLDialogElement, CreatePlayerProps>(
-  ({}, ref) => {
+  ({ closeModal }, ref) => {
     const teams = useUplStore((state) => state.teams);
-    const setPlayers = useUplStore(state => state.setPlayers)
+    const setPlayers = useUplStore((state) => state.setPlayers);
 
     const playerfoot = ["Left", "Right", "Both"];
     const playerposition = [
@@ -23,41 +25,42 @@ const CreatePlayer = forwardRef<HTMLDialogElement, CreatePlayerProps>(
       "Right Center Back",
     ];
 
-    const [team, setTeam] = useState(teams[0].id);
-    const [position, setPosition] = useState(playerposition[0]);
-    const [foot, setFoot] = useState(playerfoot[0]);
+    const [player, setPlayer] = useState({
+      firstName: "",
+      lastName: "",
+      age: 0,
+      shirtNumber: 0,
+      position: "",
+      foot: "",
+      team: 0,
+    });
 
-    const [age, setAge] = useState(0);
-    const [firstName, setfirstName] = useState("");
-    const [lastName, setLastName] = useState("");
+    const handlePlayer = (e: any) => {
+      setPlayer({
+        ...player,
+        [e.target.name]: e.target.value,
+      });
+    };
 
-    const [shirtNumber, setShirtNumber] = useState(0);
+    // console.log("Player state: ", {
+    //   ...player,
+    //   age: +player.age,
+    //   shirtNumber: +player.shirtNumber,
+    //   team: +player.team,
+    // });
 
-    async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-
-      const player = {
-        firstName,
-        lastName,
-        age,
-        shirt_number: shirtNumber,
-        position,
-        foot,
-        team,
-      };
 
       try {
         const url = "http://127.0.0.1:8000/api/players";
         const response = await axios.post(
           url,
           {
-            firstName,
-            lastName,
-            age,
-            shirtNumber,
-            position,
-            foot,
-            teamId: team,
+            ...player,
+            age: +player.age,
+            shirtNumber: +player.shirtNumber,
+            teamId: +player.team,
           },
           {
             headers: {
@@ -67,7 +70,8 @@ const CreatePlayer = forwardRef<HTMLDialogElement, CreatePlayerProps>(
         );
 
         if (response.data) {
-          ref.current?.close();
+          // ref.current?.close();
+          closeModal();
           const newplayers: Player[] = response.data?.players.map(
             (player: Player) => {
               return {
@@ -86,7 +90,8 @@ const CreatePlayer = forwardRef<HTMLDialogElement, CreatePlayerProps>(
       } catch (error) {
         console.error(error);
       }
-    }
+    };
+
     return (
       <div className="">
         <form
@@ -96,7 +101,7 @@ const CreatePlayer = forwardRef<HTMLDialogElement, CreatePlayerProps>(
         >
           <p
             className="absolute right-3 rounded-full text-center bg-red-600 h-5 w-5 text-white cursor-pointer"
-            onClick={() => ref?.current.close()}
+            onClick={closeModal}
           >
             X
           </p>
@@ -109,10 +114,11 @@ const CreatePlayer = forwardRef<HTMLDialogElement, CreatePlayerProps>(
               <input
                 type="text"
                 name="firstName"
-                value={firstName}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setfirstName(e.target.value)
-                }
+                value={player.firstName}
+                // onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                //   setfirstName(e.target.value)
+                // }
+                onChange={handlePlayer}
                 className="px-3 py-1.5 w-full rounded-md border border-blue-600 focus:ring-1 focus:ring-blue-600 outline-none"
               />
             </div>
@@ -122,10 +128,11 @@ const CreatePlayer = forwardRef<HTMLDialogElement, CreatePlayerProps>(
               <input
                 type="text"
                 name="lastName"
-                value={lastName}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setLastName(e.target.value)
-                }
+                value={player.lastName}
+                // onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                //   setLastName(e.target.value)
+                // }
+                onChange={handlePlayer}
                 className="px-3 py-1.5 w-full rounded-sm border border-blue-600 focus:ring-1 focus:ring-blue-600 outline-none"
               />
             </div>
@@ -137,12 +144,13 @@ const CreatePlayer = forwardRef<HTMLDialogElement, CreatePlayerProps>(
               </label>
               <input
                 type="number"
-                name="shirt_number"
-                value={shirtNumber}
+                name="shirtNumber"
+                value={player.shirtNumber}
                 className="px-3 py-1.5 w-full rounded-sm border border-blue-600 focus:ring-1 focus:ring-blue-600 outline-none"
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setShirtNumber(+e.target.value)
-                }
+                // onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                //   setShirtNumber(+e.target.value)
+                // }
+                onChange={handlePlayer}
               />
             </div>
             <div className="col-span-2">
@@ -150,11 +158,12 @@ const CreatePlayer = forwardRef<HTMLDialogElement, CreatePlayerProps>(
               <input
                 type="number"
                 name="age"
-                value={age}
+                value={player.age}
                 className="px-3 py-1.5 w-full rounded-md border border-blue-600 focus:ring-1 focus:ring-blue-600 outline-none"
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setAge(+e.target.value)
-                }
+                // onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                //   setAge(+e.target.value)
+                // }
+                onChange={handlePlayer}
               />
             </div>
             <div className="col-span-3">
@@ -162,9 +171,10 @@ const CreatePlayer = forwardRef<HTMLDialogElement, CreatePlayerProps>(
               <select
                 name="foot"
                 className="bg-white px-3 py-1.5 w-full rounded-md border border-blue-600 focus:ring-1 focus:ring-blue-600 outline-none"
-                onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
-                  setFoot(e.target.value)
-                }
+                // onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+                //   setFoot(e.target.value)
+                // }
+                onChange={handlePlayer}
               >
                 {playerfoot?.map((f) => (
                   <option value={f} key={f}>
@@ -181,9 +191,10 @@ const CreatePlayer = forwardRef<HTMLDialogElement, CreatePlayerProps>(
               <select
                 name="position"
                 className="bg-white px-3 py-1.5 w-full rounded-md border border-blue-600 focus:ring-1 focus:ring-blue-600 outline-none"
-                onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
-                  setPosition(e.target.value)
-                }
+                // onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+                //   setPosition(e.target.value)
+                // }
+                onChange={handlePlayer}
               >
                 {playerposition?.map((position) => (
                   <option
@@ -201,9 +212,10 @@ const CreatePlayer = forwardRef<HTMLDialogElement, CreatePlayerProps>(
               <select
                 name="team"
                 className=" bg-white px-3 py-1.5 w-full rounded-md border border-blue-600 focus:ring-1 focus:ring-blue-600 outline-none"
-                onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
-                  setTeam(+e.target.value)
-                }
+                // onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+                //   setTeam(+e.target.value)
+                // }
+                onChange={handlePlayer}
               >
                 {teams?.map((team) => (
                   <option
