@@ -3,25 +3,39 @@ import axios from "axios";
 import useUplStore from "../../zustand/uplStore";
 import { successNotification } from "../utilities/utilities";
 
-type CreateTeamProps = {};
+type CreateTeamProps = {
+  closeModal: () => void;
+};
 const CreateTeam = forwardRef<HTMLDialogElement, CreateTeamProps>(
-  (CreateTeamProps, ref) => {
+  ({closeModal}, ref) => {
     const setTeams = useUplStore((state) => state.setTeams);
 
-    const [name, setName] = useState("");
-    const [city, setCity] = useState("");
+    // const [name, setName] = useState("");
+    // const [city, setCity] = useState("");
+
+
+    const [team, setTeam] = useState({
+      teamName: "",
+      city: "",
+    })
+    const handleChange = (e: any) => {
+      setTeam({
+        ...team,
+        [e.target.name]: e.target.value,
+      });
+    }
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      const data = {
-        name,
-        city,
-      };
+      // const data = {
+      //   teamName: team.teamName,
+      //   city: team.city,
+      // };
       try {
         const url = "http://localhost:8000/api/teams";
         const response = await axios.post(
           url,
-          { name, city },
+          { name: team.teamName, city:team.city },
           {
             headers: {
               Accept: "application/json",
@@ -29,22 +43,52 @@ const CreateTeam = forwardRef<HTMLDialogElement, CreateTeamProps>(
           }
         );
         setTeams(response.data?.teams);
-        ref?.current?.close();
+        // ref?.current?.close();
+        closeModal()
         successNotification(response.data?.message);
       } catch (error) {
         console.error(error);
       }
-    };
+    }
+
+    // console.log("Team: ", team)
+
+    // const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    //   e.preventDefault();
+    //   const data = {
+    //     name,
+    //     city,
+    //   };
+    //   try {
+    //     const url = "http://localhost:8000/api/teams";
+    //     const response = await axios.post(
+    //       url,
+    //       { name, city },
+    //       {
+    //         headers: {
+    //           Accept: "application/json",
+    //         },
+    //       }
+    //     );
+    //     setTeams(response.data?.teams);
+    //     // ref?.current?.close();
+    //     closeModal()
+    //     successNotification(response.data?.message);
+    //   } catch (error) {
+    //     console.error(error);
+    //   }
+    // };
     return (
       <div className="px-4 py-2">
         <form
           style={{ width: "450px" }}
           className="p-1 relative"
-          onSubmit={(e) => handleSubmit(e)}
+          onSubmit={handleSubmit}
         >
           <p
             className="w-5 h-5 bg-red-600 text-white absolute right-1 cursor-pointer rounded-full text-center"
-            onClick={() => ref?.current?.close()}
+            // onClick={() => ref?.current?.close()}
+            onClick={closeModal}
           >
             X
           </p>
@@ -54,10 +98,12 @@ const CreateTeam = forwardRef<HTMLDialogElement, CreateTeamProps>(
             <label className="text-gray-600 block text-sm">Team name</label>
             <input
               type="text"
-              value={name}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setName(e.target.value)
-              }
+              name="teamName"
+              value={team.teamName}
+              // onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              //   setName(e.target.value)
+              // }
+              onChange={handleChange}
               className="px-3 py-1.5 w-full rounded-md border border-blue-600 focus:ring-1 focus:ring-blue-600 outline-none"
             />
           </div>
@@ -65,10 +111,12 @@ const CreateTeam = forwardRef<HTMLDialogElement, CreateTeamProps>(
             <label className="text-gray-600 block text-sm">City</label>
             <input
               type="text"
-              value={city}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setCity(e.target.value)
-              }
+              name="city"
+              value={team.city}
+              // onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              //   setCity(e.target.value)
+              // }
+              onChange={handleChange}
               className="px-3 py-1.5 w-full rounded-sm border border-blue-600 focus:ring-1 focus:ring-blue-600 outline-none"
             />
           </div>
