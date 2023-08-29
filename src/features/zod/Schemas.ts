@@ -54,8 +54,8 @@ export type PlayerSchemaType = z.infer<typeof PlayerSchema>
 
 
 export const TeamSchema = z.object({
-    name: z.string().min(3, "Team name cannot be less than 2 characters"),
-    name: z.string().min(3, "Team city cannot be less than 2 characters"),
+    teamName: z.string().min(3, "Team name cannot be less than 2 characters"),
+    city: z.string().min(3, "Team city cannot be less than 2 characters"),
 })
 
 export type TeamSchemaType = z.infer<typeof TeamSchema>
