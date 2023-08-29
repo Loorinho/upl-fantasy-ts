@@ -48,3 +48,9 @@
     color: white;
     font-weight: 500;
 }
+
+
+.login_form{
+    width: 450px;
+    height: 450px;
+}
