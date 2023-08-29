@@ -24,7 +24,7 @@ export const ManagerSchema = z.object({
     firstName: z.string().min(2, "First name must be at least 2 characters long"),
     lastName: z.string().min(2, "Last name must be at least 2 characters long"),
     age: z.number().positive("Age cannot be negative").min(18,"Manager age must be greater than 18"),
-    team: z.number("Enter a valid team")
+    team: z.number().positive("Enter a valid team")
 })
 
 export type ManagerSchemaType = z.infer<typeof ManagerSchema>
@@ -47,7 +47,7 @@ export const PlayerSchema = z.object({
       "Right Center Back",
     ]),
     foot: z.enum(["Left", "Right", "Both"]),    
-    team: z.number("Enter a valid team")
+    team: z.number().min(3,"Enter a valid team")
 })
 
 export type PlayerSchemaType = z.infer<typeof PlayerSchema>
