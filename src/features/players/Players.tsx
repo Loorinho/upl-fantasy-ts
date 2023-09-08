@@ -72,7 +72,7 @@ const Players = () => {
         id="player-dialog"
         ref={playerRef}
       >
-        <CreatePlayer ref={playerRef} closeModal={closeModal} />
+        <CreatePlayer closeModal={closeModal} />
       </dialog>
     </>
   );

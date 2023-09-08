@@ -32,7 +32,7 @@ const CreateManager = ({ closeModal }: CreateManagerProps) => {
     firstName: "",
     lastName: "",
     age: 0,
-    teamId: teams[0].id,
+    teamId: teams[0]?.id || 1,
   });
 
   // To handle the input change
@@ -104,14 +104,7 @@ const CreateManager = ({ closeModal }: CreateManagerProps) => {
 
             <input
               type="text"
-              // name="firstName"
-              // value={firstName}
-              // value={manager.firstName}
-              // onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              //   setfirstName(e.target.value)
-              // }
               {...register("firstName")}
-              // onChange={handleChange}
               className="px-3 py-1.5 w-full rounded-md border border-blue-600 focus:ring-1 focus:ring-blue-600 outline-none"
             />
           </div>
@@ -120,12 +113,6 @@ const CreateManager = ({ closeModal }: CreateManagerProps) => {
 
             <input
               type="text"
-              // name="lastName"
-              // value={manager.lastName}
-              // onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              //   setLastName(e.target.value)
-              // }
-              // onChange={handleChange}
               {...register("lastName")}
               className="px-3 py-1.5 w-full rounded-sm border border-blue-600 focus:ring-1 focus:ring-blue-600 outline-none"
             />
@@ -136,10 +123,7 @@ const CreateManager = ({ closeModal }: CreateManagerProps) => {
             <label className="text-gray-600 block text-sm">Team</label>
             <select
               className="px-3 py-1.5 w-full rounded-sm border border-blue-600 focus:ring-1 focus:ring-blue-600 outline-none"
-              // onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
-              //   setTeam(+e.target.value)
-              // }
-              // onChange={handleChange}
+     
               {...register("team")}
             >
               {teams.map((team: any) => (
@@ -153,13 +137,7 @@ const CreateManager = ({ closeModal }: CreateManagerProps) => {
             <label className="text-gray-600 block text-sm">Age</label>
             <input
               type="number"
-              // name="age"
-              // value={manager.age}
               className="px-3 py-1.5 w-full rounded-md border border-blue-600 focus:ring-1 focus:ring-blue-600 outline-none"
-              // onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              //   setAge(+e.target.value)
-              // }
-              // onChange={handleChange}
               {...register("age")}
             />
           </div>
