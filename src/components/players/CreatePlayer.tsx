@@ -57,12 +57,7 @@ const CreatePlayer = ({ closeModal }: CreatePlayerProps) => {
     });
   };
 
-  // console.log("Player state: ", {
-  //   ...player,
-  //   age: +player.age,
-  //   shirtNumber: +player.shirtNumber,
-  //   team: +player.team,
-  // });
+
 
   // const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
   //   e.preventDefault();
@@ -133,12 +128,6 @@ const CreatePlayer = ({ closeModal }: CreatePlayerProps) => {
 
             <input
               type="text"
-              // name="firstName"
-              // value={player.firstName}
-              // onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              //   setfirstName(e.target.value)
-              // }
-              // onChange={handlePlayer}
               {...register("firstName")}
               className="px-3 py-1.5 w-full rounded-md border border-blue-600 focus:ring-1 focus:ring-blue-600 outline-none"
             />
@@ -151,12 +140,6 @@ const CreatePlayer = ({ closeModal }: CreatePlayerProps) => {
 
             <input
               type="text"
-              // name="lastName"
-              // value={player.lastName}
-              // onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              //   setLastName(e.target.value)
-              // }
-              // onChange={handlePlayer}
               {...register("lastName")}
               className="px-3 py-1.5 w-full rounded-md border border-blue-600 focus:ring-1 focus:ring-blue-600 outline-none"
             />
@@ -170,14 +153,7 @@ const CreatePlayer = ({ closeModal }: CreatePlayerProps) => {
             <label className="text-gray-600 block text-sm">Shirt number</label>
             <input
               type="number"
-              // name="shirtNumber"
-              // value={player.shirtNumber}
               className="px-3 py-1.5 w-full rounded-md border border-blue-600 focus:ring-1 focus:ring-blue-600 outline-none"
-
-              // onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              //   setShirtNumber(+e.target.value)
-              // }
-              // onChange={handlePlayer}
             />
             {errors.shirtNumber && (
               <span className="text-red-600">{`${errors.shirtNumber?.message}`}</span>
@@ -187,13 +163,8 @@ const CreatePlayer = ({ closeModal }: CreatePlayerProps) => {
             <label className="text-gray-600 block text-sm">Age</label>
             <input
               type="number"
-              // name="age"
-              // value={player.age}
               className="px-3 py-1.5 w-full rounded-md border border-blue-600 focus:ring-1 focus:ring-blue-600 outline-none"
-              // onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              //   setAge(+e.target.value)
-              // }
-              // onChange={handlePlayer}
+           
               {...register("age")}
             />
             {errors.age && (
@@ -205,10 +176,7 @@ const CreatePlayer = ({ closeModal }: CreatePlayerProps) => {
             <select
               // name="foot"
               className="bg-white px-3 py-1.5 w-full rounded-md border border-blue-600 focus:ring-1 focus:ring-blue-600 outline-none"
-              // onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
-              //   setFoot(e.target.value)
-              // }
-              // onChange={handlePlayer}
+
               {...register("foot")}
             >
               {playerfoot?.map((f) => (
@@ -229,17 +197,14 @@ const CreatePlayer = ({ closeModal }: CreatePlayerProps) => {
             <select
               // name="position"
               className="bg-white px-3 py-1.5 w-full rounded-md border border-blue-600 focus:ring-1 focus:ring-blue-600 outline-none"
-              // onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
-              //   setPosition(e.target.value)
-              // }
-              // onChange={handlePlayer}
+
               {...register("position")}
             >
               {playerposition?.map((position) => (
                 <option
                   value={position}
                   key={position}
-                  //   className=" bg-white px-3 py-1.5 w-full rounded-md border border-blue-600 focus:ring-1 focus:ring-blue-600 outline-none"
+                    className=" bg-white px-3 py-1.5 w-full rounded-md border border-blue-600 focus:ring-1 focus:ring-blue-600 outline-none"
                 >
                   {position}
                 </option>
@@ -252,12 +217,9 @@ const CreatePlayer = ({ closeModal }: CreatePlayerProps) => {
           <div className="col-span-4">
             <label className="text-gray-600 block text-sm">Team</label>
             <select
-              // name="team"
+
               className=" bg-white px-3 py-1.5 w-full rounded-md border border-blue-600 focus:ring-1 focus:ring-blue-600 outline-none"
-              // onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
-              //   setTeam(+e.target.value)
-              // }
-              // onChange={handlePlayer}
+            
               {...register("team")}
             >
               {teams?.map((team) => (
