@@ -1,12 +1,15 @@
 import { ChangeEvent, FormEvent, forwardRef, useEffect, useMemo, useState } from "react";
 import axios from "axios";
 
-import { successNotification } from "../utilities/utilities";
 import useUplStore from "../../zustand/uplStore";
 
 import { FixtureType } from "../../zustand/api/api";
-type CreateFixtureProps = {};
-const CreateFixture = forwardRef((CreateFixtureProps, ref) => {
+import { successNotification } from "../../utils/functions/notifications";
+type CreateFixtureProps = {
+  closeModal: ()=>void
+};
+const CreateFixture = ({closeModal}: CreateFixtureProps) => {
+
   const setFixtures = useUplStore(state => state.setFixtures)
   const [data, setData] = useState<FixtureType[]>([])
   const [homeTeam, setHomeTeam] = useState(0);
@@ -56,7 +59,9 @@ const CreateFixture = forwardRef((CreateFixtureProps, ref) => {
         successNotification(response.data.message);
         setFixtures(response.data.fixtures)
         // setData(response.data.fixtures)
-        ref?.current?.close();
+        // ref?.current?.close();
+        closeModal()
+
       }
 
 
@@ -78,7 +83,7 @@ const CreateFixture = forwardRef((CreateFixtureProps, ref) => {
         <button
           type="button"
           className="bg-red-400 w-5 h-5 text-white text-center rounded-full outline-none absolute right-0 -top-5"
-          onClick={() => ref.current?.close()}
+          onClick={closeModal}
         >
           X
         </button>
@@ -179,6 +184,6 @@ const CreateFixture = forwardRef((CreateFixtureProps, ref) => {
       </form>
     </div>
   );
-});
+};
 
 export default CreateFixture;

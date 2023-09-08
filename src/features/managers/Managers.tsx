@@ -65,7 +65,7 @@ const Managers = () => {
         id="manager-dialog"
         ref={managerRef}
       >
-        <CreateManager ref={managerRef} closeModal={closeModal} />
+        <CreateManager closeModal={closeModal} />
       </dialog>
     </>
   );

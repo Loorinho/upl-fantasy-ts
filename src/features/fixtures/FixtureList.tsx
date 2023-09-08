@@ -4,10 +4,21 @@ import useUplStore from "../../zustand/uplStore";
 import { FixtureType, fetchFixtures } from "../../zustand/api/api";
 import { useQuery } from "@tanstack/react-query";
 import Fixture from "./Fixture";
+
+// type FixtureProp = {
+  
+// }
 const FixturesList = () => {
   const fixtureRef = useRef<HTMLDialogElement>(null);
   // console.log(fixtureRef.current)
   // const [fixtures, setFixtures] = useState([]);
+
+  const closeModal = () =>{
+    fixtureRef.current?.close
+  }
+  //  const openModal = () => {
+  //    fixtureRef.current?.close;
+  //  };
 
   const { data: myFixtures, isSuccess } = useQuery({
     queryKey: ["fixtures"],
@@ -44,7 +55,7 @@ const FixturesList = () => {
       </div>
 
       <dialog ref={fixtureRef} className="fixture-dialog rounded-lg px-2">
-        <CreateFixture ref={fixtureRef} />
+        <CreateFixture closeModal={closeModal} />
       </dialog>
     </div>
   );
