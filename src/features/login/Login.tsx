@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { LoginSchema, LoginSchemaType } from "../features/zod/Schemas";
+import { LoginSchema, LoginSchemaType } from "../zod/Schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Link } from "react-router-dom";
 

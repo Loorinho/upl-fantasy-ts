@@ -1,14 +1,15 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import Login from "./components/Login";
-import Register from "./components/Register";
-import Home from "./Home";
-import Players from "./components/players/Players";
-import Teams from "./components/teams/Teams";
-import Managers from "./components/managers/Managers";
+import Login from "./features/login/Login";
+import Register from "./features/registration/Register";
+import Home from "./features/home/Home";
+import Players from "./features/players/Players";
 import Layout from "./components/layout/Layout";
-import Table from "./components/tables/Table";
-import FixturesList from "./components/fixtures/FixtureList";
+import Teams from "./features/teams/Teams";
+import Managers from "./features/managers/Managers";
+import Table from "./features/tables/Table";
+import FixturesList from "./features/fixtures/FixtureList";
+
 
 function App() {
   return (

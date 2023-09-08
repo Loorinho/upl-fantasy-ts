@@ -1,8 +1,9 @@
 import { FormEvent, forwardRef, useState } from "react";
 import useUplStore from "../../zustand/uplStore";
-import { successNotification } from "../utilities/utilities";
 
 import axios from "axios";
+import { successNotification } from "../../utils/functions/notifications";
+
 type CreateManagerProps = {
   closeModal: () => void;
 };

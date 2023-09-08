@@ -1,10 +1,12 @@
 import { FormEvent, forwardRef, useState } from "react";
 import axios from "axios";
 import useUplStore from "../../zustand/uplStore";
-import { successNotification } from "../utilities/utilities";
+
 import {useForm} from "react-hook-form";
 import { TeamSchema, TeamSchemaType } from "../../features/zod/Schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { successNotification } from "../../utils/functions/notifications";
+
 
 type CreateTeamProps = {
   closeModal: () => void;

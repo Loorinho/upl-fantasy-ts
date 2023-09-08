@@ -1,6 +1,6 @@
 import { useRef } from "react";
-import useUplStore from "../../zustand/uplStore";
 import CreateManager from "./CreateManager";
+import useUplStore from "../../zustand/uplStore";
 
 const Managers = () => {
   const managers = useUplStore((state) => state.managers);

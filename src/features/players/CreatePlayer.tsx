@@ -1,26 +1,23 @@
-import { useState, forwardRef, FormEvent } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import useUplStore from "../../zustand/uplStore";
-import { PlayerSchema, PlayerSchemaType } from "../../features/zod/Schemas";
+import { PlayerSchema, PlayerSchemaType } from "../zod/Schemas";
 
 type CreatePlayerProps = {
   closeModal: () => void;
 };
 // const CreatePlayer = forwardRef<HTMLDialogElement, CreatePlayerProps>(
 const CreatePlayer = ({ closeModal }: CreatePlayerProps) => {
-  // const 
-
   // React hook form
 
-   const {
-     register,
-     handleSubmit,
-     formState: { errors, isSubmitting },
-   } = useForm<PlayerSchemaType>({
-     resolver: zodResolver(PlayerSchema),
-   });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<PlayerSchemaType>({
+    resolver: zodResolver(PlayerSchema),
+  });
 
   // End of react hook form
   const teams = useUplStore((state) => state.teams);
@@ -40,24 +37,22 @@ const CreatePlayer = ({ closeModal }: CreatePlayerProps) => {
     "Right Center Back",
   ];
 
-  const [player, setPlayer] = useState({
-    firstName: "",
-    lastName: "",
-    age: 0,
-    shirtNumber: 0,
-    position: "",
-    foot: "",
-    team: 0,
-  });
+  // const [player, setPlayer] = useState({
+  //   firstName: "",
+  //   lastName: "",
+  //   age: 0,
+  //   shirtNumber: 0,
+  //   position: "",
+  //   foot: "",
+  //   team: 0,
+  // });
 
-  const handlePlayer = (e: any) => {
-    setPlayer({
-      ...player,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-
+  // const handlePlayer = (e: any) => {
+  //   setPlayer({
+  //     ...player,
+  //     [e.target.name]: e.target.value,
+  //   });
+  // };
 
   // const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
   //   e.preventDefault();
@@ -103,7 +98,7 @@ const CreatePlayer = ({ closeModal }: CreatePlayerProps) => {
   // };
 
   const handlePlayerSubmit = (data: PlayerSchemaType) => {
-    console.log("Data: ", data)
+    console.log("Data: ", data);
   };
 
   return (
@@ -164,7 +159,6 @@ const CreatePlayer = ({ closeModal }: CreatePlayerProps) => {
             <input
               type="number"
               className="px-3 py-1.5 w-full rounded-md border border-blue-600 focus:ring-1 focus:ring-blue-600 outline-none"
-           
               {...register("age")}
             />
             {errors.age && (
@@ -176,7 +170,6 @@ const CreatePlayer = ({ closeModal }: CreatePlayerProps) => {
             <select
               // name="foot"
               className="bg-white px-3 py-1.5 w-full rounded-md border border-blue-600 focus:ring-1 focus:ring-blue-600 outline-none"
-
               {...register("foot")}
             >
               {playerfoot?.map((f) => (
@@ -197,14 +190,13 @@ const CreatePlayer = ({ closeModal }: CreatePlayerProps) => {
             <select
               // name="position"
               className="bg-white px-3 py-1.5 w-full rounded-md border border-blue-600 focus:ring-1 focus:ring-blue-600 outline-none"
-
               {...register("position")}
             >
               {playerposition?.map((position) => (
                 <option
                   value={position}
                   key={position}
-                    className=" bg-white px-3 py-1.5 w-full rounded-md border border-blue-600 focus:ring-1 focus:ring-blue-600 outline-none"
+                  className=" bg-white px-3 py-1.5 w-full rounded-md border border-blue-600 focus:ring-1 focus:ring-blue-600 outline-none"
                 >
                   {position}
                 </option>
@@ -217,9 +209,7 @@ const CreatePlayer = ({ closeModal }: CreatePlayerProps) => {
           <div className="col-span-4">
             <label className="text-gray-600 block text-sm">Team</label>
             <select
-
               className=" bg-white px-3 py-1.5 w-full rounded-md border border-blue-600 focus:ring-1 focus:ring-blue-600 outline-none"
-            
               {...register("team")}
             >
               {teams?.map((team) => (

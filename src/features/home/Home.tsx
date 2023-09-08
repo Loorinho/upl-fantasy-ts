@@ -1,41 +1,48 @@
 import { useQuery } from "@tanstack/react-query";
-import Register from "./components/Register";
-import { Player, Team, Manager, fetchPlayers, fetchTeams, fetchManagers } from "./zustand/api/api";
+import Register from "../registration/Register";
+import {
+  Player,
+  Team,
+  Manager,
+  fetchPlayers,
+  fetchTeams,
+  fetchManagers,
+} from "../../zustand/api/api";
 import { useMemo } from "react";
-import useUplStore from "./zustand/uplStore";
+import useUplStore from "../../zustand/uplStore";
 
 const Home = () => {
-  const setPlayers = useUplStore(state => state.setPlayers)
-  const setTeams = useUplStore(state => state.setTeams)
-  const setManagers = useUplStore(state => state.setManagers)
-  
-    const { data: players, isSuccess: loadedPlayers } = useQuery({
-      queryKey: ["players"],
-      queryFn: fetchPlayers,
-    });
-    const { data: teams, isSuccess: loadedTeams } = useQuery({
-      queryKey: ["teams"],
-      queryFn: fetchTeams,
-    });
+  const setPlayers = useUplStore((state) => state.setPlayers);
+  const setTeams = useUplStore((state) => state.setTeams);
+  const setManagers = useUplStore((state) => state.setManagers);
+
+  const { data: players, isSuccess: loadedPlayers } = useQuery({
+    queryKey: ["players"],
+    queryFn: fetchPlayers,
+  });
+  const { data: teams, isSuccess: loadedTeams } = useQuery({
+    queryKey: ["teams"],
+    queryFn: fetchTeams,
+  });
 
   const { data: managers, isSuccess: loadedManagers } = useQuery({
     queryKey: ["managers"],
     queryFn: fetchManagers,
   });
-  
+
   let realTeams: Team[] = [];
-  let realPlayers: Player[] = []
-  let realManagers: Manager[] = []
-  
-  if(loadedPlayers && loadedTeams && loadedManagers){
-    realPlayers = players
-    realTeams = teams
-    realManagers = managers
+  let realPlayers: Player[] = [];
+  let realManagers: Manager[] = [];
+
+  if (loadedPlayers && loadedTeams && loadedManagers) {
+    realPlayers = players;
+    realTeams = teams;
+    realManagers = managers;
   }
   useMemo(() => {
     setPlayers(realPlayers);
     setTeams(realTeams);
-    setManagers(realManagers)
+    setManagers(realManagers);
   }, [realPlayers, realTeams, realManagers]);
 
   return (
