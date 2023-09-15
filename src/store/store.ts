@@ -1,5 +1,6 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import PlayerReducer from "../features/players/playerSlice";
+import ManagerSlice from "../features/managers/managerSlice";
 
 import storage from "redux-persist/lib/storage";
 import {persistReducer, FLUSH, PERSIST, PAUSE, REGISTER, REHYDRATE, PURGE} from 'redux-persist'
@@ -13,7 +14,8 @@ const persistConfiguration = {
 }
 
 const reducer = combineReducers({
-    player: PlayerReducer
+    player: PlayerReducer,
+    manager: ManagerSlice
 })
 
 const persistedReducer = persistReducer(persistConfiguration, reducer)
