@@ -18,7 +18,7 @@ const initialState: InitialState = {
 
 }
 export const teamSlice = createSlice({
-    name: "player",
+    name: "team",
     initialState,
     reducers: {
         setTeams: (state, action:PayloadAction<TeamType[]> ) =>{
