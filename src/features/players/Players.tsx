@@ -2,7 +2,13 @@ import { useRef } from "react";
 import { Player } from "../../zustand/api/api";
 import useUplStore from "../../zustand/uplStore";
 import CreatePlayer from "./CreatePlayer";
+import { useAppSelector } from "../../store/hooks";
 const Players = () => {
+
+  //RTK
+  const newPlayers = useAppSelector(state => state.player.players)
+  console.log("new players: ", newPlayers)
+
   const players = useUplStore((state) => state.players);
   const playerRef = useRef<HTMLDialogElement>(null);
   function showModal() {
