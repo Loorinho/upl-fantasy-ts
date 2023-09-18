@@ -1,13 +1,24 @@
-import { useRef } from "react";
+import { useMemo, useRef } from "react";
 import { Player } from "../../zustand/api/api";
 import useUplStore from "../../zustand/uplStore";
 import CreatePlayer from "./CreatePlayer";
 import { useAppSelector } from "../../store/hooks";
+import axios from "axios";
 const Players = () => {
+
+  const fetchPlayers = async () =>{
+    const url = "http://localhost:8081/api/players";
+    try {
+      const response = await axios.get(url)
+      console.log("Response: ", response.data)
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   //RTK
   const newPlayers = useAppSelector(state => state.player.players)
-  console.log("new players: ", newPlayers)
+  // console.log("new players: ", newPlayers)
 
   const players = useUplStore((state) => state.players);
   const playerRef = useRef<HTMLDialogElement>(null);
@@ -17,6 +28,10 @@ const Players = () => {
    function closeModal() {
      playerRef.current?.close();
    }
+
+   useMemo(()=>{
+    fetchPlayers()
+   }, [])
 
   return (
     <>
