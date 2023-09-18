@@ -1,4 +1,4 @@
-import { useMemo, useRef } from "react";
+import { useMemo, useRef, useState } from "react";
 import { Player } from "../../zustand/api/api";
 import useUplStore from "../../zustand/uplStore";
 import CreatePlayer from "./CreatePlayer";
@@ -6,11 +6,13 @@ import { useAppSelector } from "../../store/hooks";
 import axios from "axios";
 const Players = () => {
 
+  const [myPlayers, setMyPlayers] = useState([])
   const fetchPlayers = async () =>{
-    const url = "http://localhost:8081/api/players";
+    const url = "http://localhost:8082/api/v1/players";
     try {
       const response = await axios.get(url)
-      console.log("Response: ", response.data)
+      setMyPlayers(response?.data)
+      // console.log("Response: ", response.data)
     } catch (error) {
       console.error(error)
     }
@@ -68,11 +70,11 @@ const Players = () => {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-400">
-            {players?.map((player: Player, index) => (
+            {myPlayers?.map((player: any, index) => (
               <tr key={player.id}>
                 <td className="p-2 text-sm text-gray-700 ">{index + 1}</td>
                 <td className="p-2 text-sm text-gray-700 ">
-                  {player.first_name} {player.last_name}
+                  {player.firstName} {player.lastName}
                 </td>
                 <td className="p-2 text-sm text-gray-700 ">
                   {player.shirt_number}
