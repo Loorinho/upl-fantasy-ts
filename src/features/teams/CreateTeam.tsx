@@ -2,43 +2,51 @@ import { FormEvent, forwardRef, useState } from "react";
 import axios from "axios";
 import useUplStore from "../../zustand/uplStore";
 
-import {useForm} from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { TeamSchema, TeamSchemaType } from "../../features/zod/Schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { successNotification } from "../../utils/functions/notifications";
-
 
 type CreateTeamProps = {
   closeModal: () => void;
 };
 const CreateTeam = forwardRef<HTMLDialogElement, CreateTeamProps>(
-  ({closeModal}, ref) => {
+  ({ closeModal }, ref) => {
     const setTeams = useUplStore((state) => state.setTeams);
 
-   const {
-     register,
-     handleSubmit,
-     formState: { errors },
-   } = useForm<TeamSchemaType>({
-     resolver: zodResolver(TeamSchema),
-   });
+    const {
+      register,
+      handleSubmit,
+      formState: { errors },
+    } = useForm<TeamSchemaType>({
+      resolver: zodResolver(TeamSchema),
+    });
 
     const submitTeam = async (data: TeamSchemaType) => {
       // e.preventDefault();
 
-      console.log("Data: ", data);
+      // console.log("Data: ", {
+      //   name: data.teamName,
+      //   city: data.city,
+      // });
+
+      const mydata = {
+        name: data.teamName,
+        city: data.city,
+        country: "Uganda",
+      };
+
+      console.log("Data: ", mydata)
 
       try {
-        const url = "http://localhost:8000/api/teams";
-        const response = await axios.post(
-          url,
-          data,
-          {
-            headers: {
-              Accept: "application/json",
-            },
-          }
-        );
+        const url = "http://localhost:8082/api/v1/teams";
+        const response = await axios.post(url, mydata, {
+          headers: {
+            Accept: "application/json",
+          },
+        });
+
+        // console.log(response)
         setTeams(response.data?.teams);
         // ref?.current?.close();
         closeModal();
@@ -48,7 +56,6 @@ const CreateTeam = forwardRef<HTMLDialogElement, CreateTeamProps>(
       }
     };
 
-  
     return (
       <div className="px-4 py-2">
         <form

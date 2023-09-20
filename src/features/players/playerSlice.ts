@@ -7,7 +7,7 @@ type PlayerType = {
     lastName: string,
     position: string,
     foot: string,
-    team: number
+    team?: number
 }
 
 type InitialState = {
