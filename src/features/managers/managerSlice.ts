@@ -5,8 +5,7 @@ export type ManagerType = {
     id: number,
     firstName: string,
     lastName: string,
-    // position: string,
-    // foot: string,
+    age: number
     // team: number
 }
 

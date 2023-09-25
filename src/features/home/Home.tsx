@@ -2,16 +2,21 @@ import { useQuery } from "@tanstack/react-query";
 import Register from "../registration/Register";
 import {
   Player,
-  Team,
-  Manager,
   fetchPlayers,
   fetchTeams,
   fetchManagers,
 } from "../../zustand/api/api";
 import { useMemo } from "react";
 import useUplStore from "../../zustand/uplStore";
+import { ManagerType, setManagers } from "../managers/managerSlice";
+import { TeamType } from "../teams/teamSlice";
+import { useAppDispatch } from "../../store/hooks";
 
 const Home = () => {
+
+  //RTK
+  const dispatch = useAppDispatch()
+
   const setPlayers = useUplStore((state) => state.setPlayers);
   const setTeams = useUplStore((state) => state.setTeams);
   const setManagers = useUplStore((state) => state.setManagers);
@@ -30,20 +35,29 @@ const Home = () => {
     queryFn: fetchManagers,
   });
 
-  let realTeams: Team[] = [];
-  let realPlayers: Player[] = [];
-  let realManagers: Manager[] = [];
+  console.log("Managers: ", managers)
 
-  if (loadedPlayers && loadedTeams && loadedManagers) {
-    realPlayers = players;
-    realTeams = teams;
-    realManagers = managers;
-  }
-  useMemo(() => {
-    setPlayers(realPlayers);
-    setTeams(realTeams);
-    setManagers(realManagers);
-  }, [realPlayers, realTeams, realManagers]);
+  let realTeams: TeamType[] = [];
+  let realPlayers: Player[] = [];
+  let realManagers: ManagerType[] = [];
+
+  // dispatch(setManagers(managers))
+
+  // if (loadedPlayers && loadedTeams && loadedManagers) {
+  //   realPlayers = players;
+  //   realTeams = teams;
+  //   realManagers = managers;
+  // }
+  // useMemo(() => {
+  //   setPlayers(realPlayers);
+  //   setTeams(realTeams);
+  //   setManagers(realManagers);
+
+  //   //RTK
+  //   // dispatch(setManagers(realManagers))
+  // }, [realPlayers, realTeams, realManagers]);
+
+  // console.log("Realmanagers: ", realManagers)
 
   return (
     <div>

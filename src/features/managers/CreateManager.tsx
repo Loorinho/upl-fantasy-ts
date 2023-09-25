@@ -6,6 +6,8 @@ import axios from "axios";
 import { successNotification } from "../../utils/functions/notifications";
 import { ManagerSchema, ManagerSchemaType } from "../zod/Schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useAppDispatch } from "../../store/hooks";
+import { ManagerType, setManagers } from "./managerSlice";
 
 type CreateManagerProps = {
   closeModal: () => void;
@@ -13,7 +15,7 @@ type CreateManagerProps = {
 
 const CreateManager = ({ closeModal }: CreateManagerProps) => {
   const teams = useUplStore((state) => state.teams);
-  const setManagers = useUplStore((state) => state.setManagers);
+  // const setManagers = useUplStore((state) => state.setManagers);
 
   // React hook form
 
@@ -78,8 +80,10 @@ const CreateManager = ({ closeModal }: CreateManagerProps) => {
   //   }
   // };
 
+  const dispatch = useAppDispatch()
   const handleManagerSubmit = async (data: ManagerSchemaType) => {
-    console.log("Data: ", data)
+
+    // console.log("Data: ", data)
 
     try {
       const url = "http://localhost:8081/api/v1/managers";
@@ -93,15 +97,18 @@ const CreateManager = ({ closeModal }: CreateManagerProps) => {
           "Content-Type": "application/json"
         }
       })
+      const managers= response?.data?.managers?.managers;
 
-      console.log("Response: ", response?.data)
+      // console.log("Response: ", managers)
+
+      dispatch(setManagers(managers));
       
     } catch (error) {
       
     }
   };
 
-  console.log("Form errors: ", errors)
+  // console.log("Form errors: ", errors)
   return (
     <div>
       <form

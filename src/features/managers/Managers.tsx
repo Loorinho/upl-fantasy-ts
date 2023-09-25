@@ -1,10 +1,26 @@
-import { useRef } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 import CreateManager from "./CreateManager";
 import useUplStore from "../../zustand/uplStore";
+import { ManagerType, setManagers } from "./managerSlice";
+import axios from "axios";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
 
 const Managers = () => {
+  const dispatch = useAppDispatch()
+  const rtkManagers = useAppSelector(state =>state.manager.managers)
+
   const managers = useUplStore((state) => state.managers);
   const managerRef = useRef<HTMLDialogElement>(null)!
+
+  const [myManagers, setMyManagers] = useState<ManagerType[]>([])
+
+  const fetchManagers = async () =>{
+    const url = "http://localhost:8081/api/v1/managers"
+    const response = await axios.get(url)
+
+    setMyManagers(response.data?.managers)
+    dispatch(setManagers(response.data?.managers))
+  }
 
   function showModal() {
     managerRef.current?.showModal();
@@ -16,6 +32,12 @@ const Managers = () => {
       managerRef.current?.close();
     }
 
+    useMemo(()=>{
+      fetchManagers()
+    }, [])
+
+
+    // console.log("Managers:", myManagers)
 
   return (
     <>
@@ -46,15 +68,15 @@ const Managers = () => {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-400">
-            {managers?.map((manager: any, index) => (
+            {rtkManagers?.map((manager: ManagerType, index) => (
               <tr key={manager.id}>
                 <td className="p-2 text-sm text-gray-700 ">{index + 1}</td>
 
                 <td className="p-2 text-sm text-gray-700 ">
-                  {manager.first_name} {manager.last_name}
+                  {manager.firstName} {manager.lastName}
                 </td>
                 <td className="p-2 text-sm text-gray-700 ">{manager.age}</td>
-                <td className="p-2 text-sm text-gray-700 ">{manager.team}</td>
+                {/* <td className="p-2 text-sm text-gray-700 ">{manager.team}</td> */}
               </tr>
             ))}
           </tbody>

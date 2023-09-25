@@ -1,6 +1,7 @@
 import axios from "axios";
 import { TeamType } from "../../features/teams/teamSlice";
-import { ManagerType } from "../../features/managers/managerSlice";
+import { ManagerType, setManagers } from "../../features/managers/managerSlice";
+import { useAppDispatch } from "../../store/hooks";
 
 export type Player = {
   id: number;
@@ -30,16 +31,10 @@ export type FixtureType = {
 //   players: Player[];
 // };
 
-export type Manager = {
-  id: number;
-  first_name: string;
-  last_name: string;
-  age: string;
-  // team: Team;
-};
+// /
 
 export const fetchPlayers = async () => {
-  const url = "http://localhost:8082/api/v1/players";
+  const url = "http://localhost:8012/api/v1/players";
   const response = await axios.get(url);
   const players: Player[] = response.data.players.map((player: Player) => {
     return {
@@ -57,7 +52,7 @@ export const fetchPlayers = async () => {
 };
 
 export const fetchTeams = async () => {
-  const url = "http://localhost:8082/api/v1/teams";
+  const url = "http://localhost:8081/api/v1/teams";
   const response = await axios.get(url);
   // const teams: Team[] = response.data?.teams.map((team: Team) => {
   const teams: TeamType[] = response.data?.teams.map((team: TeamType) => {
@@ -75,20 +70,21 @@ export const fetchTeams = async () => {
 };
 
 export const fetchManagers = async () => {
-  const url = "http://localhost:8082/api/v1/managers";
+  // const dispatch = useAppDispatch();
+  const url = "http://localhost:8081/api/v1/managers";
   const response = await axios.get(url);
-  // const managers: Manager[] = response.data?.managers.map(
   const managers: ManagerType[] = response.data?.managers.map(
     (manager: ManagerType) => {
       return {
         id: manager.id,
         firstName: manager.firstName,
         lastName: manager.lastName,
-        // age: manager.age,
+        age: manager.age,
         // team: manager.team?.name,
       };
     }
   );
+  // dispatch(setManagers(managers))
 
   return managers;
 };
