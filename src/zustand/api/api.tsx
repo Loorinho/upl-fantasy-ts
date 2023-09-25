@@ -1,4 +1,5 @@
 import axios from "axios";
+import { TeamType } from "../../features/teams/teamSlice";
 
 export type Player = {
   id: number;
@@ -20,20 +21,20 @@ export type FixtureType = {
   time: string;
 };
 
-export type Team = {
-  id: number;
-  name: string;
-  city: string;
-  country: string;
-  players: Player[];
-};
+// export type Team = {
+//   id: number;
+//   name: string;
+//   city: string;
+//   country: string;
+//   players: Player[];
+// };
 
 export type Manager = {
   id: number;
   first_name: string;
   last_name: string;
   age: string;
-  team: Team;
+  // team: Team;
 };
 
 export const fetchPlayers = async () => {
@@ -55,15 +56,17 @@ export const fetchPlayers = async () => {
 };
 
 export const fetchTeams = async () => {
-  const url = "http://127.0.0.1:8000/api/teams";
+  const url = "http://localhost:8082/api/v1/teams";
   const response = await axios.get(url);
-  const teams: Team[] = response.data?.teams.map((team: Team) => {
+  // const teams: Team[] = response.data?.teams.map((team: Team) => {
+  const teams: TeamType[] = response.data?.teams.map((team: TeamType) => {
+// 
     return {
       id: team.id,
       name: team.name,
       city: team.city,
-      country: team.country,
-      players: team.players,
+      // country: team.country,
+      // players: team.players,
     };
   });
 
@@ -80,7 +83,7 @@ export const fetchManagers = async () => {
         first_name: manager.first_name,
         last_name: manager.last_name,
         age: manager.age,
-        team: manager.team?.name,
+        // team: manager.team?.name,
       };
     }
   );

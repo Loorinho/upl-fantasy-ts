@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 
 
-type TeamType = {
+export type TeamType = {
     id: number,
     name: string,
     city: string
