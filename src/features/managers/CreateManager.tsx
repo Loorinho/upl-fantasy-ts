@@ -80,6 +80,24 @@ const CreateManager = ({ closeModal }: CreateManagerProps) => {
 
   const handleManagerSubmit = async (data: ManagerSchemaType) => {
     console.log("Data: ", data)
+
+    try {
+      const url = "http://localhost:8081/api/v1/managers";
+
+      const response = await axios.post(url, {
+        firstName: data.firstName,
+        lastName: data.lastName
+      }, {
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+
+      console.log("Response: ", response?.data)
+      
+    } catch (error) {
+      
+    }
   };
   return (
     <div>
@@ -118,7 +136,7 @@ const CreateManager = ({ closeModal }: CreateManagerProps) => {
             />
           </div>
         </div>
-        <div className="grid grid-cols-8 gap-2 mb-3">
+        {/* <div className="grid grid-cols-8 gap-2 mb-3">
           <div className="col-span-3">
             <label className="text-gray-600 block text-sm">Team</label>
             <select
@@ -141,8 +159,8 @@ const CreateManager = ({ closeModal }: CreateManagerProps) => {
               {...register("age")}
             />
           </div>
-        </div>
-
+        </div> */}
+      
         <div className="flex justify-center items-center my-3">
           <button
             type="submit"
