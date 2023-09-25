@@ -4,7 +4,8 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 export type TeamType = {
     id: number,
     name: string,
-    city: string
+    city: string,
+    country: string
 }
 
 type InitialState = {

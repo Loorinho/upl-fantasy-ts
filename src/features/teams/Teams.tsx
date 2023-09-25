@@ -2,21 +2,35 @@ import { useMemo, useRef, useState } from 'react'
 import useUplStore from "../../zustand/uplStore";
 import CreateTeam from "./CreateTeam"
 import axios from 'axios';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { TeamType, setTeams } from './teamSlice';
 
 const Teams = () => {
+
+  //RTK
+  const dispatch = useAppDispatch()
+  const rtkTeams = useAppSelector(state => state.team.teams)
+
+
+  // console.log("RTK teams: ", rtkTeams)
+
+
   const teamRef = useRef<HTMLDialogElement>(null);
   const teams = useUplStore((state) => state.teams);
 
   const [myTeams, setMyTeams] = useState([]);
 
   const fetchTeams =  async () => {
-    const url = "http://localhost:8082/api/v1/teams";
+    const url = "http://localhost:8081/api/v1/teams";
       try {
         const response = await axios.get(url)
 
-        console.log(response)
+        // console.log(response)
 
         setMyTeams(response?.data)
+
+        //RTK
+        dispatch(setTeams(response.data?.teams))
         
       } catch (error) {
         
@@ -36,7 +50,7 @@ const Teams = () => {
     fetchTeams()
   }, [])
 
-  console.log("Teams: ", myTeams)
+  // console.log("Teams: ", myTeams)
   return (
     <div style={{ width: "500px" }}>
       <button
@@ -63,7 +77,7 @@ const Teams = () => {
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-400">
-          {myTeams?.map((team: any, index) => (
+          {rtkTeams?.map((team: TeamType, index) => (
             <tr key={team.id}>
               <td className="p-2 text-sm text-gray-700 ">{index + 1}</td>
 
