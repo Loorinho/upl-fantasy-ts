@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 
 
-type ManagerType = {
+export type ManagerType = {
     id: number,
     firstName: string,
     lastName: string,

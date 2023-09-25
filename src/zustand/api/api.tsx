@@ -1,5 +1,6 @@
 import axios from "axios";
 import { TeamType } from "../../features/teams/teamSlice";
+import { ManagerType } from "../../features/managers/managerSlice";
 
 export type Player = {
   id: number;
@@ -74,15 +75,16 @@ export const fetchTeams = async () => {
 };
 
 export const fetchManagers = async () => {
-  const url = "http://127.0.0.1:8000/api/managers";
+  const url = "http://localhost:8082/api/v1/managers";
   const response = await axios.get(url);
-  const managers: Manager[] = response.data?.managers.map(
-    (manager: Manager) => {
+  // const managers: Manager[] = response.data?.managers.map(
+  const managers: ManagerType[] = response.data?.managers.map(
+    (manager: ManagerType) => {
       return {
         id: manager.id,
-        first_name: manager.first_name,
-        last_name: manager.last_name,
-        age: manager.age,
+        firstName: manager.firstName,
+        lastName: manager.lastName,
+        // age: manager.age,
         // team: manager.team?.name,
       };
     }
