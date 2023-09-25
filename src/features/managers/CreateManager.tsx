@@ -86,7 +86,8 @@ const CreateManager = ({ closeModal }: CreateManagerProps) => {
 
       const response = await axios.post(url, {
         firstName: data.firstName,
-        lastName: data.lastName
+        lastName: data.lastName,
+        age: +data.age
       }, {
         headers: {
           "Content-Type": "application/json"
@@ -99,6 +100,8 @@ const CreateManager = ({ closeModal }: CreateManagerProps) => {
       
     }
   };
+
+  console.log("Form errors: ", errors)
   return (
     <div>
       <form
@@ -136,8 +139,8 @@ const CreateManager = ({ closeModal }: CreateManagerProps) => {
             />
           </div>
         </div>
-        {/* <div className="grid grid-cols-8 gap-2 mb-3">
-          <div className="col-span-3">
+         <div className="grid grid-cols-8 gap-2 mb-3">
+          {/* <div className="col-span-3">
             <label className="text-gray-600 block text-sm">Team</label>
             <select
               className="px-3 py-1.5 w-full rounded-sm border border-blue-600 focus:ring-1 focus:ring-blue-600 outline-none"
@@ -150,7 +153,7 @@ const CreateManager = ({ closeModal }: CreateManagerProps) => {
                 </option>
               ))}
             </select>
-          </div>
+          </div> */}
           <div className="col-span-2">
             <label className="text-gray-600 block text-sm">Age</label>
             <input
@@ -159,7 +162,7 @@ const CreateManager = ({ closeModal }: CreateManagerProps) => {
               {...register("age")}
             />
           </div>
-        </div> */}
+        </div> 
       
         <div className="flex justify-center items-center my-3">
           <button

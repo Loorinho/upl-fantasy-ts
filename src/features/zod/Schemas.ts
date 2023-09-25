@@ -25,7 +25,7 @@ export type LoginSchemaType = z.infer<typeof LoginSchema>
 export const ManagerSchema = z.object({
     firstName: z.string().min(2, "First name must be at least 2 characters long"),
     lastName: z.string().min(2, "Last name must be at least 2 characters long"),
-    age: z.number().positive("Age cannot be negative").min(18,"Manager age must be greater than 18"),
+    age: z.coerce.number().positive(),
     // team: z.number().positive("Enter a valid team")
 })
 
